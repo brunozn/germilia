@@ -15,6 +15,17 @@ class PlanoFamilia(models.Model):
         return self.name
 
 
+class QuantidadeDiasPago(models.Model):
+    name = models.CharField(max_length=50)
+    quant_meses = models.IntegerField('Quant meses', default=30)
+
+    class Meta:
+        verbose_name = 'Quantidade dia'
+
+    def __str__(self):
+        return self.name
+
+
 class Banco(models.Model):
     cod = models.IntegerField(default=0, unique=True)
     name = models.CharField(max_length=100)
@@ -59,27 +70,48 @@ class Membro(models.Model):
 class Pagamentos(models.Model):
     membro = models.ForeignKey(Membro, blank=False, on_delete=models.PROTECT)
     price_month = models.DecimalField('Preço por mês', max_digits=10, decimal_places=2, default=0.00)
-    months = models.IntegerField('Quant meses', default=1)
+    months = models.ForeignKey(QuantidadeDiasPago, on_delete=models.CASCADE)
     amount_paid = models.DecimalField('Valor Pago', max_digits=5, decimal_places=2, blank=True, null=True)
-    entry_date = models.DateField(default=now)
+    data_pagamento = models.DateField('Data pagamento',default=now)
     form_pay = models.ForeignKey(FormaPagamento, null=True, blank=True, on_delete=models.CASCADE)
     plano = models.ForeignKey(PlanoFamilia, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Pagamento'
         verbose_name_plural = 'Pagamentos'
-
-    def payable_amount(self):
-        return self.price_month * self.months
+    
+    # quantidade pagável = preço por mes * meses
+    # def payable_amount(self):
+    #     return self.price_month * self.months
 
     def __str__(self):
         return self.membro.name_full
 
-    # def debit(self):
-    #     return self.amount_paid - self.payable_amount()
+    # Débito = valor pago - valor a pagar
+    def debit(self):
+        from datetime import date
+        agora = date.today()
+        history = Pagamentos.objects.filter(membro=self.membro).order_by('data_pagamento')
+        date_last = history.latest('data_pagamento').data_pagamento
+
+        ultimo_pagamento = abs((self.data_pagamento - date_last).days)
+        if ultimo_pagamento == 0:
+            quant_meses = QuantidadeDiasPago.objects.filter(name=self.months).last().quant_meses
+            df = quant_meses - abs((date_last - agora).days)
+            if df == 0:
+                return 'Hoje é o dia', df
+            elif df < 0:
+                return 'Atrasado:',  df
+            return 'Restam', df
+        if ultimo_pagamento > 0:
+            return 'Pago'
+        return ultimo_pagamento
+        # debito = history2 - agora
+        # return debito
+        # return self.amount_paid - self.payable_amount()
 
 
-@receiver(post_save, sender=Pagamentos)
-def update_payable_amount(sender, instance, **kwargs):
-    instance.amount_payable.payable_amount()
+# @receiver(post_save, sender=Pagamentos)
+# def update_payable_amount(sender, instance, **kwargs):
+#     instance.amount_payable.payable_amount()
 
