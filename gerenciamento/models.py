@@ -50,7 +50,7 @@ class FormaPagamento(models.Model):
 class Membro(models.Model):
     name = models.CharField(max_length=30)
     notes = models.TextField(max_length=255, null=True, blank=True)
-    entry_date = models.DateTimeField()
+    entry_date = models.DateField()
     photo = models.ImageField(upload_to='membro_photos', null=True, blank=True)
     ativo = models.BooleanField(default=1)
 
