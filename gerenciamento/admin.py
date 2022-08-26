@@ -14,7 +14,7 @@ class PlanoFamiliaAdmin(admin.ModelAdmin):
     
 @admin.register(QuantidadeDiasPago)
 class QuantidadeDiasPago(admin.ModelAdmin):
-    list_display = ['name', 'quant_meses']
+    list_display = ['name', 'quantidade']
 
 
 @admin.register(FormaPagamento)
@@ -24,10 +24,11 @@ class FormaPagamentoAdmin(admin.ModelAdmin):
 
 @admin.register(Membro)
 class MembroAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'notes', 'ativo']
+    list_display = ['name', 'notes', 'ativo']
     list_filter = ('ativo',)
 
 
 @admin.register(Pagamentos)
 class PagamentosAdmin(admin.ModelAdmin):
+    list_filter = ('membro__ativo',)
     list_display = ['membro', 'data_pagamento', 'amount_paid', 'months', 'plano', 'debit']

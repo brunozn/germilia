@@ -17,10 +17,11 @@ class PlanoFamilia(models.Model):
 
 class QuantidadeDiasPago(models.Model):
     name = models.CharField(max_length=50)
-    quant_meses = models.IntegerField('Quant meses', default=30)
+    quantidade = models.IntegerField('Quant meses', default=30)
 
     class Meta:
-        verbose_name = 'Quantidade dia'
+        verbose_name = 'Quantitativo de dias'
+        verbose_name_plural = 'Quantitativo de dias'
 
     def __str__(self):
         return self.name
@@ -47,24 +48,19 @@ class FormaPagamento(models.Model):
 
 
 class Membro(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
     notes = models.TextField(max_length=255, null=True, blank=True)
     entry_date = models.DateTimeField()
     photo = models.ImageField(upload_to='membro_photos', null=True, blank=True)
     ativo = models.BooleanField(default=1)
 
     class Meta:
-        ordering = ('first_name',)
+        ordering = ('name',)
         verbose_name = 'Membro'
         verbose_name_plural = 'Membros'
 
-    @property
-    def name_full(self):
-        return self.first_name + ' ' + self.last_name
-
     def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        return '{}'.format(self.name)
 
 
 class Pagamentos(models.Model):
@@ -77,41 +73,33 @@ class Pagamentos(models.Model):
     plano = models.ForeignKey(PlanoFamilia, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
+        ordering = ('-data_pagamento',)
         verbose_name = 'Pagamento'
         verbose_name_plural = 'Pagamentos'
-    
-    # quantidade pagável = preço por mes * meses
-    # def payable_amount(self):
-    #     return self.price_month * self.months
 
     def __str__(self):
         return self.membro.name_full
 
     # Débito = valor pago - valor a pagar
     def debit(self):
-        from datetime import date
-        agora = date.today()
         history = Pagamentos.objects.filter(membro=self.membro).order_by('data_pagamento')
         date_last = history.latest('data_pagamento').data_pagamento
-
         ultimo_pagamento = abs((self.data_pagamento - date_last).days)
+        result = self.quantitativo(ultimo_pagamento, date_last)
+        return result
+        
+    def quantitativo(self, ultimo_pagamento, date_last, t=None):
+        from datetime import date
+        agora = date.today()
         if ultimo_pagamento == 0:
-            quant_meses = QuantidadeDiasPago.objects.filter(name=self.months).last().quant_meses
+            quant_meses = QuantidadeDiasPago.objects.filter(name=self.months).last().quantidade
             df = quant_meses - abs((date_last - agora).days)
             if df == 0:
-                return 'Hoje é o dia', df
+                return 'Hoje é o dia: {0}'.format(df)
             elif df < 0:
-                return 'Atrasado:',  df
-            return 'Restam', df
+                return 'Atrasado ' + str(abs(df)) + ' dias'
+
+            return 'Restam {0} dias'.format(df)
         if ultimo_pagamento > 0:
             return 'Pago'
         return ultimo_pagamento
-        # debito = history2 - agora
-        # return debito
-        # return self.amount_paid - self.payable_amount()
-
-
-# @receiver(post_save, sender=Pagamentos)
-# def update_payable_amount(sender, instance, **kwargs):
-#     instance.amount_payable.payable_amount()
-
