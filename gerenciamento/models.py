@@ -6,17 +6,17 @@ from django.utils.timezone import now
 
 
 class PlanoFamilia(models.Model):
-    name = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
 
     class Meta:
         verbose_name = 'Plano'
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
 class QuantidadeDiasPago(models.Model):
-    name = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
     quantidade = models.IntegerField('Quant meses', default=30)
 
     class Meta:
@@ -24,19 +24,19 @@ class QuantidadeDiasPago(models.Model):
         verbose_name_plural = 'Quantitativo de dias'
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
 class Banco(models.Model):
     cod = models.IntegerField(default=0, unique=True)
-    name = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
 class FormaPagamento(models.Model):
-    name = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
     banco = models.ForeignKey(Banco, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
@@ -44,24 +44,24 @@ class FormaPagamento(models.Model):
         verbose_name_plural = 'Formas de Pagamentos'
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
 class Membro(models.Model):
-    name = models.CharField(max_length=30)
+    nome = models.CharField(max_length=30)
     email = models.EmailField(max_length=254)
-    notes = models.TextField(max_length=255, null=True, blank=True)
-    entry_date = models.DateField()
-    photo = models.ImageField(upload_to='membro_photos', null=True, blank=True)
-    ativo = models.BooleanField(default=1)
+    notas = models.TextField(max_length=255, null=True, blank=True)
+    data_entrada = models.DateField()
+    foto = models.ImageField(upload_to='membro_photos', null=True, blank=True)
+    status = models.BooleanField(default=1)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('nome',)
         verbose_name = 'Membro'
         verbose_name_plural = 'Membros'
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.nome)
 
 
 class Pagamentos(models.Model):
