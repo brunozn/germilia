@@ -31,4 +31,4 @@ class MembroAdmin(admin.ModelAdmin):
 @admin.register(Pagamentos)
 class PagamentosAdmin(admin.ModelAdmin):
     list_filter = ('membro__status',)
-    list_display = ['membro', 'data_pagamento', 'amount_paid', 'months', 'plano', 'debit']
+    list_display = ['membro', 'data_pagamento', 'notas', 'amount_paid', 'months', 'plano', 'debit']

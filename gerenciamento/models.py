@@ -70,6 +70,7 @@ class Pagamentos(models.Model):
     months = models.ForeignKey(QuantidadeDiasPago, on_delete=models.CASCADE)
     amount_paid = models.DecimalField('Valor Pago', max_digits=5, decimal_places=2, blank=True, null=True)
     data_pagamento = models.DateField('Data pagamento',default=now)
+    notas = models.TextField(max_length=255, null=True, blank=True)
     form_pay = models.ForeignKey(FormaPagamento, null=True, blank=True, on_delete=models.CASCADE)
     plano = models.ForeignKey(PlanoFamilia, null=True, blank=True, on_delete=models.CASCADE)
 
@@ -79,11 +80,11 @@ class Pagamentos(models.Model):
         verbose_name_plural = 'Pagamentos'
 
     def __str__(self):
-        return self.membro.name_full
+        return self.membro.nome
 
     # Débito = valor pago - valor a pagar
     def debit(self):
-        history = Pagamentos.objects.filter(membro=self.membro).order_by('data_pagamento')
+        history = Pagamentos.objects.filter(membro=self.membro, membro__status=True).order_by('data_pagamento')
         date_last = history.latest('data_pagamento').data_pagamento
         ultimo_pagamento = abs((self.data_pagamento - date_last).days)
         result = self.quantitativo(ultimo_pagamento, date_last)
@@ -93,7 +94,7 @@ class Pagamentos(models.Model):
         from datetime import date
         agora = date.today()
         if ultimo_pagamento == 0:
-            quant_meses = QuantidadeDiasPago.objects.filter(name=self.months).last().quantidade
+            quant_meses = QuantidadeDiasPago.objects.filter(nome=self.months).last().quantidade
             df = quant_meses - abs((date_last - agora).days)
             if df == 0:
                 return 'Hoje é o dia: {0}'.format(df)
