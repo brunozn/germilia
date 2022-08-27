@@ -30,5 +30,6 @@ class MembroAdmin(admin.ModelAdmin):
 
 @admin.register(Pagamentos)
 class PagamentosAdmin(admin.ModelAdmin):
+    search_fields = ['membro__nome',]
     list_filter = ('membro__status',)
     list_display = ['membro', 'data_pagamento', 'notas', 'amount_paid', 'months', 'plano', 'debit']
