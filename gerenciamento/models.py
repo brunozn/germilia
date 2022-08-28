@@ -17,7 +17,8 @@ class PlanoFamilia(models.Model):
 
 class QuantidadeDiasPago(models.Model):
     nome = models.CharField(max_length=50)
-    quantidade = models.IntegerField('Quant meses', default=30)
+    quantidade_meses = models.IntegerField('Quant meses', default=1)
+    quantidade_dias = models.IntegerField('Quant dias', default=30)
 
     class Meta:
         verbose_name = 'Quantitativo de dias'
@@ -94,7 +95,7 @@ class Pagamentos(models.Model):
         from datetime import date
         agora = date.today()
         if ultimo_pagamento == 0:
-            quant_meses = QuantidadeDiasPago.objects.filter(nome=self.months).last().quantidade
+            quant_meses = QuantidadeDiasPago.objects.filter(nome=self.months).last().quantidade_dias
             df = quant_meses - abs((date_last - agora).days)
             if df == 0:
                 return 'Hoje é o dia: {0}'.format(df)
@@ -105,3 +106,4 @@ class Pagamentos(models.Model):
         if ultimo_pagamento > 0:
             return 'Pago'
         return ultimo_pagamento
+
