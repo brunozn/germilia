@@ -116,8 +116,8 @@ USE_L10N = False
 # DATE_FORMAT = "d/m/Y"
 DATE_FORMAT = ( ( 'd/m/Y' ))
 DATE_INPUT_FORMATS = ( ('%d/%m/%Y'),)
-DATETIME_FORMAT = (( 'd-m-Y H:i' ))
-DATETIME_INPUT_FORMATS = (('%d-%m-%Y %H:%i'),)
+DATETIME_FORMAT = (( 'd/m/Y H:i' ))
+DATETIME_INPUT_FORMATS = (('%d/%m/%Y %H:%i'),)
 
 USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
