@@ -1,214 +1,354 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-<title>Germilia</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-    * {
-        box-sizing: border-box;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GER</title>
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        margin: 0;
-     }
+    <!-- Primary Meta Tags -->
+<meta name="title" content="Ger Gerenciamento de Familias">
+<meta name="description" content="Gerenciador de Familias">
 
-/* Header/logo Title */
-.header {
-  background: #FFFFFF;
-  height: 100vh;
-}
+    <link
+      rel="shortcut icon"
+      href="{% static 'assets/images/favicon.svg' %}"
+      type="image/svg"
+    />
 
-.header h2{
-    padding-top: 20%;
-    font-size: 3rem;
-    color: #004166;
-    font-style: normal;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    margin: 0;
-}
+    <!-- ===== All CSS files ===== -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/lineicons.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/ud-styles.css' %}" />
+  </head>
+  <body>
+    <!-- ====== Header Start ====== -->
+    <header class="ud-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg">
+              <a class="navbar-brand" href="index.html">
+                <img src="{% static 'assets/images/logo/logo.svg' %}" alt="ABR" />
+              </a>
+              <button class="navbar-toggler">
+                <span class="toggler-icon"> </span>
+                <span class="toggler-icon"> </span>
+                <span class="toggler-icon"> </span>
+              </button>
 
-.header p{
-    width: 80%;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 1rem;
-    line-height: 26px;
-    display: flex;
-    align-items: center;
-    color: #004166;
-}
+              <div class="navbar-collapse">
+                <ul id="nav" class="navbar-nav mx-auto">
+                  <li class="nav-item">
+                    <a class="ud-menu-scroll" href="#home">Inicio</a>
+                  </li>
 
-/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
-.navbar {
-  height: 80px;
-  overflow: hidden;
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  background-color: #788FE2;
-}
+                  <li class="nav-item">
+                    <a class="ud-menu-scroll" href="#about">Sobre</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="ud-menu-scroll" href="#contact">Contato</a>
+                  </li>
 
-/* Style the navigation bar links */
-.navbar a {
-  float: left;
-  display: block;
-  color: #F5F5F5;
-  text-align: center;
-  padding: 40px 20px;
-  text-decoration: none;
-}
+                </ul>
+              </div>
 
-.logo{
-  margin-left: 60px;
-  width: 200px;
-}
-
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
-  margin-left: 0;
-}
-
-.navbar .right-margin {
-    margin-right: 30px;
- }
-
-/* Change color on hover */
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Active/current link */
-.navbar a.active {
-  background-color: #666;
-  color: white;
-}
-
-.row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.row-banner {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  padding: 60px 60px;
-}
-
-/* Sidebar/left column */
-.side {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-  padding: 20px;
-}
-
-.side-banner {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-}
-
-/* Main column */
-.main {
-  -ms-flex: 50%; /* IE10 */
-  flex: 50%;
-  background-color: white;
-  padding: 40px 20px;
-}
-
-@media(max-width: 650px){
-    .main{padding: 0;}
-    .header p{width: 100%;}
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  height: 100%;
-}
-
-.div-banner-right{
-  width: 100%;
-  height: 100%;
-}
-
-.img-banner{
-    width:80%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media(max-width: 600px){
-    .img-banner{width: 100%; margin-top: 10%;}
-    .row-banner{ padding: 10px 30px;}
-    .logo{margin-left:30px;}
-}
-
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background-color: #788FE2;
-}
-
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {
-    flex-direction: column;
-  }
-}
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
-</style>
-</head>
-
-<body>
-    <div class="navbar">
-      <a href="#" class="active logo">Logo Aqui</a>
-      <a href="#">Home</a>
-      <a href="#">Sobre</a>
-      <a href="#" class="right right-margin">Login</a>
-      <a href="#" class="right">Cadastre-se</a>
-    </div>
-
-    <div class="header">
-        <div class="row-banner">
-            <div class="side-banner">
-                <h2>Germilia</h2>
-                <p>Acesse agora sua conta e acompanhe suas informações de pagamentos de sua família</p>
-            </div>
-
-            <div class="main">
-                <div class="div-banner-right">
-                    <img class="img-banner" src="{% static 'img/banner.jpg' %}">
-                </div>
-            </div>
+              <div class="navbar-btn d-none d-sm-inline-block">
+                <a href="login.html" class="ud-main-btn ud-login-btn">
+                  Entrar
+                </a>
+                <a class="ud-main-btn ud-white-btn" href="javascript:void(0)">
+                  Cadastra-se
+                </a>
+              </div>
+            </nav>
+          </div>
         </div>
-    </div>
+      </div>
+    </header>
+    <!-- ====== Header End ====== -->
 
-<div class="row" style="width: 100%; height: 500px; background-color: #ddd;">
-</div>
+    <!-- ====== Hero Start ====== -->
+    <section class="ud-hero" id="home">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12" style="height: 90vh">
+            <div class="ud-hero-content wow fadeInUp" data-wow-delay=".2s">
+              <h1 class="ud-hero-title">
+               Gerenciamento de Familias
+              </h1>
+              <p class="ud-hero-desc">
+                Acesse seu perfil e tenha informações de pagamentos
+              </p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== Hero End ====== -->
 
-<div class="footer">
-  <h2 style="color: #F5F5F5">Desenvolvido com ZN</h2>
-</div>
 
-</body>
+    <!-- ====== About Start ====== -->
+    <section id="about" class="ud-about">
+      <div class="container">
+        <div class="ud-about-wrapper wow fadeInUp" data-wow-delay=".2s">
+          <div class="ud-about-content-wrapper">
+            <div class="ud-about-content">
+              <span class="tag">Sobre</span>
+              <h2>Brilliant Toolkit to Build Nextgen Website Faster.</h2>
+              <p>
+                The main ‘thrust’ is to focus on educating attendees on how to
+                best protect highly vulnerable business applications with
+                interactive panel discussions and roundtables led by subject
+                matter experts.
+              </p>
+
+              <p>
+                The main ‘thrust’ is to focus on educating attendees on how to
+                best protect highly vulnerable business applications with
+                interactive panel.
+              </p>
+              {% comment %} <a href="#" class="ud-main-btn">Learn More</a> {% endcomment %}
+            </div>
+          </div>
+          <div class="ud-about-image">
+            <img src="{% static 'assets/images/about/about-image.svg' %}" alt="about-image" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== About End ====== -->
+
+
+
+    <!-- ====== Contact Start ====== -->
+    <section id="contact" class="ud-contact">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-xl-8 col-lg-7">
+            <div class="ud-contact-content-wrapper">
+              <div class="ud-contact-title">
+                <span>Contato</span>
+                <h2>
+                  Tem alguma dúvida?<br />
+                  Mande mensagem
+                </h2>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-5">
+            <div
+              class="ud-contact-form-wrapper wow fadeInUp"
+              data-wow-delay=".2s"
+            >
+              <h3 class="ud-contact-form-title">Envie sua mensagem</h3>
+              <form class="ud-contact-form">
+                <div class="ud-form-group">
+                  <label for="fullName">Nome*</label>
+                  <input
+                    type="text"
+                    name="fullName"
+                    placeholder="Seu nome"
+                  />
+                </div>
+                <div class="ud-form-group">
+                  <label for="email">Email*</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="example@yourmail.com"
+                  />
+                </div>
+                <div class="ud-form-group">
+                  <label for="phone">Telefone*</label>
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="(88)9 999 5211"
+                  />
+                </div>
+                <div class="ud-form-group">
+                  <label for="message">Messagem*</label>
+                  <textarea
+                    name="message"
+                    rows="1"
+                    placeholder="type your message here"
+                  ></textarea>
+                </div>
+                <div class="ud-form-group mb-0">
+                  <button type="submit" class="ud-main-btn">
+                    Envie sua mensagem
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ====== Contact End ====== -->
+
+    <!-- ====== Footer Start ====== -->
+    <footer class="ud-footer wow fadeInUp" data-wow-delay=".15s">
+      <div class="shape shape-1">
+        <img src="{% static 'assets/images/footer/shape-1.svg' %}" alt="shape" />
+      </div>
+      <div class="shape shape-2">
+        <img src="{% static 'assets/images/footer/shape-2.svg' %}" alt="shape" />
+      </div>
+      <div class="shape shape-3">
+        <img src="{% static 'assets/images/footer/shape-3.svg' %}" alt="shape" />
+      </div>
+      <div class="ud-footer-widgets">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-6">
+              <div class="ud-widget">
+                <a href="index.html" class="ud-footer-logo">
+                  <img src="{% static 'assets/images/logo/logo.svg' %}" alt="logo" />
+                </a>
+                <p class="ud-widget-desc">
+                  Gereciador de Familias
+                </p>
+                <ul class="ud-widget-socials">
+                  <li>
+                    <a href="#">
+                      <i class="lni lni-facebook-filled"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="lni lni-twitter-filled"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#y">
+                      <i class="lni lni-instagram-filled"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="lni lni-linkedin-original"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-6">
+              <div class="ud-widget">
+                <h5 class="ud-widget-title">Mapa</h5>
+                <ul class="ud-widget-links">
+                  <li>
+                    <a href="#">Inicio</a>
+                  </li>
+                  <li>
+                    <a href="#">Sobre</a>
+                  </li>
+                  <li>
+                    <a href="#">Contato</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6">
+              <div class="ud-widget">
+                <h5 class="ud-widget-title">Privacidade</h5>
+                <ul class="ud-widget-links">
+                  <li>
+                    <a href="javascript:void(0)">Politica de Privacidade</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)">Termos e serviços</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="ud-footer-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <ul class="ud-footer-bottom-left">
+                <li>
+                  <a href="#)">Politica de Privacidade</a>
+                </li>
+                <li>
+                  <a href="#">Termos e serviços</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <p class="ud-footer-bottom-right">
+                Produzido por 
+                <a href="#" rel="nofollow">ZN</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- ====== Footer End ====== -->
+
+    <!-- ====== Back To Top Start ====== -->
+    <a href="javascript:void(0)" class="back-to-top">
+      <i class="lni lni-chevron-up"> </i>
+    </a>
+    <!-- ====== Back To Top End ====== -->
+
+    <!-- ====== All Javascript Files ====== -->
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script>
+      // ==== for menu scroll
+      const pageLink = document.querySelectorAll(".ud-menu-scroll");
+
+      pageLink.forEach((elem) => {
+        elem.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.querySelector(elem.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+            offsetTop: 1 - 60,
+          });
+        });
+      });
+
+      // section menu active
+      function onScroll(event) {
+        const sections = document.querySelectorAll(".ud-menu-scroll");
+        const scrollPos =
+          window.pageYOffset ||
+          document.documentElement.scrollTop ||
+          document.body.scrollTop;
+
+        for (let i = 0; i < sections.length; i++) {
+          const currLink = sections[i];
+          const val = currLink.getAttribute("href");
+          const refElement = document.querySelector(val);
+          const scrollTopMinus = scrollPos + 73;
+          if (
+            refElement.offsetTop <= scrollTopMinus &&
+            refElement.offsetTop + refElement.offsetHeight > scrollTopMinus
+          ) {
+            document
+              .querySelector(".ud-menu-scroll")
+              .classList.remove("active");
+            currLink.classList.add("active");
+          } else {
+            currLink.classList.remove("active");
+          }
+        }
+      }
+
+      window.document.addEventListener("scroll", onScroll);
+    </script>
+  </body>
 </html>
