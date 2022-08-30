@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.db.models import Sum, FloatField, F
 from django.db.models.signals import post_save
@@ -71,6 +72,7 @@ class Pagamentos(models.Model):
     months = models.ForeignKey(QuantidadeDiasPago, on_delete=models.CASCADE)
     amount_paid = models.DecimalField('Valor Pago', max_digits=5, decimal_places=2, blank=True, null=True)
     data_pagamento = models.DateField('Data pagamento',default=now)
+    data_referente = models.DateField('Referencia', blank=True, null=True)
     notas = models.TextField(max_length=255, null=True, blank=True)
     form_pay = models.ForeignKey(FormaPagamento, null=True, blank=True, on_delete=models.CASCADE)
     plano = models.ForeignKey(PlanoFamilia, null=True, blank=True, on_delete=models.CASCADE)
@@ -106,4 +108,22 @@ class Pagamentos(models.Model):
         if ultimo_pagamento > 0:
             return 'Pago'
         return ultimo_pagamento
+    
+    def save(self, *args, **kwargs): 
+        self.data_referente = self.calc() 
+        super(Pagamentos, self).save(*args, **kwargs)
+    
+    
+    def calc(self):
+        d = Pagamentos.objects.filter(membro=self.membro, membro__status=True, data_pagamento=self.data_pagamento)
+        if len(d)>1:
+            date_last = d.latest('data_pagamento').data_pagamento
+            quantidadeMonths = d.latest('data_pagamento').months
+            q2 = QuantidadeDiasPago.objects.filter(nome=quantidadeMonths)
+            q= q2.first().quantidade_meses
+            self.data_referente = (date_last + datetime.timedelta(q*365/12))
+            return self.data_referente
+        entrada = Membro.objects.get(nome=self).data_entrada
+        self.data_referente = (entrada + datetime.timedelta(6*365/12))
+        return self.data_referente
 

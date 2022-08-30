@@ -32,4 +32,4 @@ class MembroAdmin(admin.ModelAdmin):
 class PagamentosAdmin(admin.ModelAdmin):
     search_fields = ['membro__nome',]
     list_filter = ('membro__status', 'plano')
-    list_display = ['membro', 'data_pagamento', 'notas', 'amount_paid', 'months', 'plano', 'debit']
+    list_display = ['membro', 'data_pagamento', 'notas', 'amount_paid', 'months', 'data_referente', 'debit', 'calc']
