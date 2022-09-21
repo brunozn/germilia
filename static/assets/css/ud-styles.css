@@ -506,26 +506,26 @@ p {
 
 /* ===== Hero CSS ===== */
 .ud-hero {
-  background: var(--primary-color);
-  padding-top: 180px;
+  background: linear-gradient(70deg, rgba(8,6,9,1) 0%, rgba(48,86,211,1) 57%);
+  padding-top: 140px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .ud-hero {
-    padding-top: 160px;
+    padding-top: 120px;
   }
 }
 
 @media (max-width: 767px) {
   .ud-hero {
-    padding-top: 130px;
+    padding-top: 90px;
   }
 }
 
 .ud-hero-content {
   max-width: 780px;
   margin: auto;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .ud-hero-content .ud-hero-title {
@@ -534,7 +534,7 @@ p {
   font-size: 45px;
   line-height: 60px;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

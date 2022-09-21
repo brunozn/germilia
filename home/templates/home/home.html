@@ -71,10 +71,10 @@
     <!-- ====== Header End ====== -->
 
     <!-- ====== Hero Start ====== -->
-    <section class="ud-hero" id="home">
-      <div class="container">
+   <section class="ud-hero" id="home">
+      <main class="container">
         <div class="row">
-          <div class="col-lg-12" style="height: 90vh">
+
             <div class="ud-hero-content wow fadeInUp" data-wow-delay=".2s">
               <h1 class="ud-hero-title">
                Gerenciamento de Familias
@@ -82,12 +82,29 @@
               <p class="ud-hero-desc">
                 Acesse seu perfil e tenha informações de pagamentos
               </p>
-             
             </div>
-          </div>
+
+            <div class="ud-hero-content wow fadeInUp" data-wow-delay=".6s">
+              <img class="img-banner" src="{% static 'img/undraw_credit_card_payment_re_o911.svg' %}">
+            </div>
         </div>
-      </div>
+      </main>
     </section>
+
+    {% comment %} <div class="header">
+      <div class="row-banner">
+          <div class="side-banner">
+              <h2>Germilia</h2>
+              <p>Acesse agora sua conta e acompanhe suas informações de pagamentos de sua família</p>
+          </div>
+
+          <div class="main">
+              <div class="div-banner-right">
+                  <img class="img-banner" src="{% static 'img/banner.jpg' %}">
+              </div>
+          </div>
+      </div>
+  </div> {% endcomment %}
     <!-- ====== Hero End ====== -->
 
 
@@ -128,7 +145,7 @@
     <section id="contact" class="ud-contact">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-xl-8 col-lg-7">
+          <div class="col-xl-6 col-lg-7">
             <div class="ud-contact-content-wrapper">
               <div class="ud-contact-title">
                 <span>Contato</span>
@@ -140,7 +157,7 @@
 
             </div>
           </div>
-          <div class="col-xl-4 col-lg-5">
+          <div class="col-xl-6 col-lg-5">
             <div
               class="ud-contact-form-wrapper wow fadeInUp"
               data-wow-delay=".2s"
