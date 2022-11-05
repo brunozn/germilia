@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="Ger Gerenciamento de Familias">
     <meta name="description" content="Gerenciador de Familias">
-    <title>GER</title>
+      <title>{% block title %}{% endblock %}</title>
+
     <link
       rel="shortcut icon"
       href="{% static 'assets/images/favicon.svg' %}"
       type="image/svg"
     />
-    
+    {% block css%}{% endblock %}
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/lineicons.css' %}" />
@@ -23,5 +24,7 @@
     {% include 'home/navbar.html' %}
     {% block content %}{% endblock %}
     {% include 'home/footer.html' %}
+
+    {% block custom_js %}{% endblock %}
   </body>
 </html>
