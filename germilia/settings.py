@@ -12,9 +12,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+from django.contrib import staticfiles
+from django.template.context_processors import media
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -26,7 +28,6 @@ SECRET_KEY = '8ule=et-e8bz=j!pxq!z@n5u55(v)rz3%r+09uvwj8wp3+-j^s'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -71,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'germilia.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -81,7 +81,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -101,7 +100,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -114,10 +112,10 @@ USE_I18N = True
 USE_L10N = False
 
 # DATE_FORMAT = "d/m/Y"
-DATE_FORMAT = ( ( 'd/m/Y' ))
-DATE_INPUT_FORMATS = ( ('%d/%m/%Y'),)
-DATETIME_FORMAT = (( 'd/m/Y H:i' ))
-DATETIME_INPUT_FORMATS = (('%d/%m/%Y %H:%i'),)
+DATE_FORMAT = 'd/m/Y'
+DATE_INPUT_FORMATS = ('%d/%m/%Y',)
+DATETIME_FORMAT = 'd/m/Y H:i'
+DATETIME_INPUT_FORMATS = ('%d/%m/%Y %H:%i',)
 
 USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
@@ -130,3 +128,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
