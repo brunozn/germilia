@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-12">
         <nav class="navbar navbar-expand-lg">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'assets/images/logo/logo.svg' %}" alt="ABR" />
           </a>
           <button class="navbar-toggler">
@@ -29,12 +29,12 @@
           </div>
 
           <div class="navbar-btn d-none d-sm-inline-block">
-            <a href="login.html" class="ud-main-btn ud-login-btn">
+            <a href="{% url 'login' %}" class="ud-main-btn ud-login-btn">
               Entrar
             </a>
-            <a class="ud-main-btn ud-white-btn" href="javascript:void(0)">
-              Cadastra-se
-            </a>
+{#            <a class="ud-main-btn ud-white-btn" href="#">#}
+{#              Cadastra-se#}
+{#            </a>#}
           </div>
         </nav>
       </div>

@@ -147,7 +147,7 @@ p {
   border-radius: 5px;
   padding: 15px 25px;
   border: 1px solid transparent;
-  color: var(--white);
+  color: var(--primary-color);
   cursor: pointer;
   z-index: 5;
   -webkit-transition: all 0.4s ease-out 0s;
@@ -452,7 +452,7 @@ p {
 
 .navbar-btn .ud-main-btn {
   padding: 8px 16px;
-  background: transparent;
+  background: var(--white);
 }
 
 .navbar-btn .ud-login-btn:hover {
