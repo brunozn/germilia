@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 from django.db import models
+from django.db.models.signals import post_save
+from django.template.loader import render_to_string
 from django.utils.timezone import now
+from django.dispatch import receiver
 
 
 class TypePlan(models.Model):
@@ -76,10 +80,10 @@ STATUS_CHOICES = (
 class PlanContract(models.Model):
     membro = models.ForeignKey(Membro, blank=False, on_delete=models.PROTECT)
     type_plan = models.ForeignKey(TypePlan, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    amount = models.DecimalField('Valor', max_digits=5, decimal_places=2, blank=True, null=True)
     date_emissao = models.DateField('Data Emissão')
-    date_vencimento = models.DateField('date Vencimento', blank=True, null=True)
-    note = models.TextField(max_length=255, null=True, blank=True)
+    date_vencimento = models.DateField('Vencimento', blank=True, null=True)
+    note = models.TextField('Nota', max_length=255, null=True, blank=True)
     plan_family = models.CharField('plano familia', max_length=9, choices=FAMILIA_CHOICES, default="NENHUM")
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="ABERTO")
 
@@ -95,7 +99,7 @@ class PlanContractPayment(models.Model):
     contract_plan = models.ForeignKey(PlanContract, on_delete=models.CASCADE)
     form_pay = models.ForeignKey(PaymentMethod, null=True, blank=True, on_delete=models.CASCADE)
     date_pay = models.DateField('Data pagamento', default=now)
-    note = models.TextField(max_length=255, null=True, blank=True)
+    note = models.TextField('Notas', max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Pagamento de Contrato'
@@ -103,3 +107,20 @@ class PlanContractPayment(models.Model):
 
     def __str__(self):
         return '{}'.format(self.contract_plan)
+
+
+@receiver(post_save, sender=PlanContract)
+def email_pay(sender, instance, **kwargs):
+    if kwargs.get('created', False):
+        subject = "Aviso do plano familia"
+        message = render_to_string('email/email_alert_atraso.html',
+                                   {'contrato': instance})
+        from_email = 'brunojndias@gmail.com'
+        email_payout = EmailMessage(
+            subject=subject,
+            body=message,
+            from_email=from_email,
+            to=[instance.membro.email],
+        )
+        email_payout.content_subtype = "html"
+        email_payout.send()
