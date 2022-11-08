@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GERMILIA </title>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+            .b-background{background: #E5E5E5;}
+            .main-size{width: 90%;margin: 0 auto;}
+            .h1-email{font-family: 'Nunito';font-style: normal;font-weight: 700;font-size: 24px;line-height: 33px;
+                align-items: center;color: #FFFFFF; margin-top: 0;margin-bottom: 10px;}
+            .p-top{padding-top:1.5rem;}
+            .h2-email-section{font-family: 'Nunito';font-style: normal;font-weight: 700;font-size: 18px;
+                              line-height: 25px;display: flex;align-items: center;color: #49454D; margin-top:30px;}
+            .h4-email{font-family: 'Nunito';font-style: normal;font-weight: 400;font-size: 14px;
+                justify-content: center; margin: 0;
+                line-height: 19px;display: flex;align-items: center;text-align: center;color: rgba(255, 255, 255, 0.8);}
+            .h6-email{font-family: 'Nunito';font-style: normal;font-weight: 700;font-size: 14px;
+                      line-height: 19px;display: flex;align-items: center;color: #49454D; margin: 0}
+            .p-email{font-family: 'Nunito';font-style: normal;font-weight: 400;font-size: 14px;
+                     padding-bottom: 10px;
+                     line-height: 19px;display: flex;align-items: center;letter-spacing: -0.02em;color: #605D64;}
+            .section-main{height: 136px;text-align: center;
+                    background: linear-gradient(70deg, rgba(8,6,9,1) 0%, rgba(48,86,211,1) 57%);}
+            .section-background{background: #FAFAFB; padding: 10px 20px 40px 20px;}
+
+
+		</style>
+	</head>
+
+    <body class="b-background">
+      <main class="main-size">
+        <section class="section-main">
+          <h1 class="h1-email p-top">Lembrete de vencimento!</h1>
+          <h4 class="h4-email" style="margin: 0">Plano {{ contrato.plan_family }}</h4>
+        </section>
+
+        <section class="section-background">
+          <h2 class="h2-email-section">Seu plano é {{ contrato.type_plan }}</h2>
+          <h6 class="h6-email">
+              Sr.(a) {{ contrato.membro.name }}, viemos lembrá-lo(a) o vencimento de sua conta
+              com documento de nº 4567865434567, no valor de R$ {{contrato.amount}},00,
+              na data {{contrato.date_vencimento}}.
+          </h6>
+          <br>
+          <h6 class="h6-email">
+            Qualquer dúvida ou problema para efetuar o pagamento,
+            entre em contato conosco pelo telefone (88) 99635-1705 ou responda este e-mail.
+          </h6>
+          <br>
+          <p class="p-email">Caso o pagamento já tenha sido efetuado, por favor, desconsidere este aviso.</p>
+            <br>
+          <h6 class="h6-email">Você pode pagar por pix: brunojndias@gmail.com</h6>
+            <br>
+            <h6 class="h6-email">Atenciosamente,</h6>
+        </section>
+
+        <footer style="margin:0;outline:none;padding:0;width:100%;background-color:red">
+                <div style="margin:0;outline:none;padding:0;display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;font-family:sans-serif"> </div>
+                <div style="margin:0;outline:none;padding:0;display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;font-family:sans-serif"> ‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌<wbr>&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp; </div>
+                <table align="center" cellspacing="0" cellpadding="0" border="0" width="600" style="border-collapse:collapse!important;font-size:14px;min-width:100%;border-spacing:0!important;margin:auto;table-layout:fixed!important;width:100%!important;background-color:#090909">
+                    <tbody>
+                        <tr>
+                            <td style="padding:25px 20px 25px 20px;background-color:#090909">
+                                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tbody>
+                                        <tr align="center">
+
+                                            <td style="padding:0 50px 10px 50px"> <span> <b style="margin:0;outline:none;padding:0">
+                                                <h1 class="h1-email" style="font-size: 18px;
+                                                line-height: 14px;">Duvidas?</h1>
+                                            </b>
+                                            <br>
+                                                <a href="mailto:brunojndias@gmail.com">
+                                                    <h4 class="h4-email">Mande um e-mail</h4>
+
+                                                    </a> </span> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr align="center">
+                            <td style="padding:3px 30px 6px 30px">
+                                <p style="font-family:'Arial',sans-serif;font-size:10px;color:#f4f4f4;font-weight:300"> Copyright © 2022 ZN </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </footer>
+      </main>
+    </body>
+</html>
