@@ -41,8 +41,8 @@ class PaymentMethod(models.Model):
         Bank, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Forma Pagamento'
-        verbose_name_plural = 'Formas de Pagamentos'
+        verbose_name = 'Metodo de Recebimento do Pagamento'
+        verbose_name_plural = 'Metodos de Recebimento do Pagamento'
 
     def __str__(self):
         return self.name
