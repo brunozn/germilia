@@ -3,8 +3,10 @@ from django.core.mail import EmailMessage
 from django.db import models
 from django.db.models.signals import post_save
 from django.template.loader import render_to_string
+from django.utils.html import format_html
 from django.utils.timezone import now
 from django.dispatch import receiver
+from django.contrib import admin
 
 
 class TypePlan(models.Model):
@@ -71,7 +73,7 @@ FAMILIA_CHOICES = (
 )
 
 STATUS_CHOICES = (
-    ("EMDIA", "Em dia"),
+    ("ABERTO", "Aberto"),
     ("ATRASADO", "Atrasado"),
     ("PAGO", "Pago"),
 )
@@ -84,12 +86,20 @@ class PlanContract(models.Model):
     date_emissao = models.DateField('Data Emissão')
     date_vencimento = models.DateField('Vencimento', blank=True, null=True)
     note = models.TextField('Nota', max_length=255, null=True, blank=True)
-    plan_family = models.CharField('plano familia', max_length=9, choices=FAMILIA_CHOICES, default="NENHUM")
+    plan_family = models.CharField('Plano familia', max_length=9, choices=FAMILIA_CHOICES, default="NENHUM")
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="ABERTO")
 
     class Meta:
         verbose_name = 'Contrato do Plano'
         verbose_name_plural = 'Contratos dos Planos'
+
+    @admin.display
+    def status_contrato(self):
+        if self.status == "ATRASADO":
+            return format_html('<span style="background: red;color: #FBFBFB">{}</span>', self.status)
+        if self.status == "PAGO":
+            return format_html('<span style="color: green;">{}</span>', self.status)
+        return format_html('<span>{}</span>', self.status)
 
     def __str__(self):
         return self.membro.name
