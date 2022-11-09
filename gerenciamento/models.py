@@ -113,7 +113,7 @@ class PlanContractPayment(models.Model):
 def update_status(sender, instance, **kwargs):
     if kwargs.get('created', False):
         status = PlanContract.objects.filter(plancontractpayment=instance)
-        attt_status = status.update(status='PAGO')
+        status.update(status='PAGO')
 
 
 @receiver(post_save, sender=PlanContract)
