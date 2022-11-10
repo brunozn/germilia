@@ -95,7 +95,9 @@ class PlanContract(models.Model):
         verbose_name_plural = 'Contratos dos Planos'
 
     def save(self, *args, **kwargs):
+        from datetime import date
         self.nome_contrato = str(self.membro) + '_' + str(self.date_emissao) + '_' + str(self.plan_family)
+        self.date_vencimento = date.fromordinal(self.date_emissao.toordinal() + int(self.tipo_plano.quantidade_dias))
         super().save(*args, **kwargs)
 
     @admin.display
