@@ -80,8 +80,9 @@ STATUS_CHOICES = (
 
 
 class PlanContract(models.Model):
+    nome_contrato = models.CharField('Nome do contrato', max_length=255, null=True, blank=True)
     membro = models.ForeignKey(Membro, blank=False, on_delete=models.PROTECT)
-    type_plan = models.ForeignKey(TypePlan, on_delete=models.CASCADE)
+    tipo_plano = models.ForeignKey(TypePlan, on_delete=models.CASCADE)
     amount = models.DecimalField('Valor', max_digits=5, decimal_places=2, blank=True, null=True)
     date_emissao = models.DateField('Data Emissão')
     date_vencimento = models.DateField('Vencimento', blank=True, null=True)
@@ -93,6 +94,10 @@ class PlanContract(models.Model):
         verbose_name = 'Contrato do Plano'
         verbose_name_plural = 'Contratos dos Planos'
 
+    def save(self, *args, **kwargs):
+        self.nome_contrato = str(self.membro) + '_' + str(self.date_emissao) + '_' + str(self.plan_family)
+        super().save(*args, **kwargs)
+
     @admin.display
     def status_contrato(self):
         if self.status == "ATRASADO":
@@ -102,21 +107,23 @@ class PlanContract(models.Model):
         return format_html('<span>{}</span>', self.status)
 
     def __str__(self):
+        if self.nome_contrato:
+            return self.nome_contrato
         return self.membro.name
 
 
 class PlanContractPayment(models.Model):
-    contract_plan = models.ForeignKey(PlanContract, on_delete=models.CASCADE)
-    form_pay = models.ForeignKey(PaymentMethod, null=True, blank=True, on_delete=models.CASCADE)
-    date_pay = models.DateField('Data pagamento', default=now)
-    note = models.TextField('Notas', max_length=255, null=True, blank=True)
+    contrato_plano = models.ForeignKey(PlanContract, on_delete=models.CASCADE)
+    forma_pagamento = models.ForeignKey(PaymentMethod, null=True, blank=True, on_delete=models.CASCADE)
+    data_pagamento = models.DateField('Data pagamento', default=now)
+    nota = models.TextField('Notas', max_length=255, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Pagamento de Contrato'
         verbose_name_plural = 'Pagamentos dos Contratos'
 
     def __str__(self):
-        return '{}'.format(self.contract_plan)
+        return '{}'.format(self.contrato_plano)
 
 
 @receiver(post_save, sender=PlanContractPayment)

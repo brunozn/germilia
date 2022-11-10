@@ -27,10 +27,11 @@ class MembroAdmin(admin.ModelAdmin):
 class PlanAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ('status', 'plan_family')
-    list_display = ['membro', 'date_emissao', 'date_vencimento', 'amount', 'type_plan', 'status_contrato']
+    list_display = ['membro', 'date_emissao', 'date_vencimento', 'amount',
+                    'tipo_plano', 'nome_contrato', 'status_contrato']
 
 
 @admin.register(PlanContractPayment)
 class PlanContractPaymentAdmin(admin.ModelAdmin):
-    search_fields = ['contract_plan']
-    list_display = ['contract_plan', 'form_pay', 'date_pay', 'note']
+    search_fields = ['contrato_plano']
+    list_display = ['contrato_plano', 'forma_pagamento', 'data_pagamento', 'nota']
