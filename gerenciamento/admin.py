@@ -35,3 +35,8 @@ class PlanAdmin(admin.ModelAdmin):
 class PlanContractPaymentAdmin(admin.ModelAdmin):
     search_fields = ['contrato_plano']
     list_display = ['contrato_plano', 'forma_pagamento', 'data_pagamento', 'nota']
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        context['adminform'].form.fields['contrato_plano'].queryset = \
+            PlanContract.objects.filter(status__iexact='ABERTO')
+        return super(PlanContractPaymentAdmin, self).render_change_form(request, context, *args, **kwargs)
