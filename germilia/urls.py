@@ -7,10 +7,11 @@ from django.conf.urls.static import static
 # from germilia.germilia import settings
 
 urlpatterns = [
-    # path('dashboard/', include('gerenciamento.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_membro, name='login'),
+    path('sair/', views.sair, name='sair'),
 ]
 
 if settings.DEBUG:
