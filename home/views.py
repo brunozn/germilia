@@ -35,4 +35,4 @@ def login_membro(request):
 def sair(request):
     print(request)
     logout(request)
-    return redirect('login')
+    return redirect('index')
