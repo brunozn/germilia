@@ -1,10 +1,12 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import UsernameField
-from django.utils.translation import gettext_lazy as _
 
 
 class SignInForm(AuthenticationForm):
-    password = forms.CharField(label=_(""), widget=forms.PasswordInput(attrs={
-        'placeholder': _('Password')
+    username = forms.CharField(label="", widget=forms.TextInput(attrs={
+        'placeholder': 'Usuario', 'class': "form-control",
+    }))
+
+    password = forms.CharField(label="", widget=forms.PasswordInput(attrs={
+        'placeholder': 'Senha', 'class': "form-control",
     }))

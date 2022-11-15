@@ -473,25 +473,25 @@ p {
 }
 
 .sticky .navbar-nav .nav-item:hover > a {
-  color: var(--primary-color);
+  color: var(--white);
   opacity: 1;
 }
 
 .sticky .navbar-nav .nav-item a {
-  color: var(--heading-color);
+  color: var(--white);
 }
 
 .sticky .navbar-nav .nav-item a.active, .sticky .navbar-nav .nav-item a:hover {
-  color: var(--primary-color);
+  color: var(--white);
   opacity: 1;
 }
 
 .sticky .navbar-btn .ud-main-btn.ud-login-btn {
-  color: var(--heading-color);
+  color: var(--white);
 }
 
 .sticky .navbar-btn .ud-main-btn.ud-login-btn:hover {
-  color: var(--primary-color);
+  color: var(--white);
   opacity: 1;
 }
 

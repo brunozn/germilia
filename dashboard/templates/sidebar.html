@@ -4,11 +4,9 @@
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Painel</div>
 
-                  <a class="nav-link {% if 'index' in segment %} active {% endif %}"
+                  <a class="nav-link {% if 'contratos_list' in segment %} active {% endif %}"
                     href="{% url 'contratos_list' %}">
-                        <div class="sb-nav-link-icon">
-                            <i class="far fa-calendar" style="color: #383838;"></i>
-                        </div>
+                  <i class="pr-2 far fa-calendar {% if 'contratos_list' in segment %} active {% endif %}"></i>
                     Contratos
                   </a>
             </div>

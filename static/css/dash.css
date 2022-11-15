@@ -2109,7 +2109,7 @@ fieldset:disabled a.btn {
 }
 .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #d90075;
+  background-color: #0344b1;
   border-color: #d90090;
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus {
@@ -9865,7 +9865,7 @@ body {
   color: rgba(255, 255, 255, 0.25);
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link:hover {
-  color: #d90075;
+  color: #0344b1;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link.active {
   color: #fff;
@@ -9894,10 +9894,10 @@ body {
   color: #adb5bd;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link:hover {
-  color: #d90075;
+  color: #0344b1;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active {
-  color: #d90075;
+  color: #0344b1;
 }
 .sb-sidenav-light .sb-sidenav-menu .nav-link.active .sb-nav-link-icon {
   color: #adb5bd;
@@ -9927,20 +9927,20 @@ body {
 
 #button-adm{
   height: 30px;
-  background: #D90075;
+  background: #0344b1;
   font-family: Inter, 'serif';
   font-style: normal;
   font-weight: bold;
   font-size: 12px;
   text-decoration: none;
-  border: #d90075;
+  border: #0344b1;
 }
 
 .button-adm{
   height: 40px;
   width: 110px;
   margin-top: 10px;
-  border: 1px solid #d90075;
+  border: 1px solid #0344b1;
 }
 
 .input-search-adm{
@@ -10004,8 +10004,8 @@ body {
 }
 
 .text:hover{
-  color: #d90075;
-  text-decoration: #d90075;
+  color: #0344b1;
+  text-decoration: #0344b1;
 }
 
 @media(max-width: 992px) {
