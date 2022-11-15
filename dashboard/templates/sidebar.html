@@ -9,6 +9,12 @@
                   <i class="pr-2 far fa-calendar {% if 'contratos_list' in segment %} active {% endif %}"></i>
                     Contratos
                   </a>
+
+                <a class="nav-link {% if 'historic_pay' in segment %} active {% endif %}"
+                    href="{% url 'historic_pay' %}">
+                  <i class="pr-2 far fa-calendar {% if 'historic_pay' in segment %} active {% endif %}"></i>
+                    Pagamentos
+                  </a>
             </div>
         </div>
 
