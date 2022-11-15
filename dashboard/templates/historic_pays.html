@@ -9,7 +9,7 @@
 {% block content %}
     <section>
         <div class="container-fluid">
-            <h3 class="h3-promoter mt-4 pt-2 mb-4">Lista de contratos</h3>
+            <h3 class="h3-promoter mt-4 pt-2 mb-4">Pagamentos</h3>
 {#            {% if tickets %}#}
 
 {#                <header class="col-12 mb-4 p-0 d-block d-lg-flex">#}
@@ -82,42 +82,44 @@
 
 
                 <main class="card-checkin">
-                    {% for contrato in contratos %}
+                    {% for pay in pays %}
                         <article class="card m-lg-2 m-0 mb-4"
-                             style="min-width: 20rem;
-                             max-width: 20rem; border-radius: 10px;">
-
-                            {% if contrato.status == 'PAGO' %}
-                                <section class="card-header card-promoter" style="background: forestgreen">
-                            {% else %}
-                                <section class="card-header card-promoter">
-                            {% endif %}
-
-                                <div style="display: flex; justify-content: space-between;">
-                                    <p class="p-promoter">{{contrato.status}}</p>
-                                </div>
-                            </section>
-
+                             style="min-width: 22rem;
+                             max-width: 25rem; border-radius: 10px;">
 
                             <section class="card-body" style="padding-left: 0px; padding-bottom: 0">
                                 <div style="display: block; padding-right: 0; padding-left: 20px" >
-                                    <h6 class="h6-promoter mb-3">{{ contrato.nome_contrato }}</h6>
+                                    <h5 class="h5-promoter mb-3">{{ pay.contrato_plano }}</h5>
 
                                     <p class="p-promoter" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">EMISSÃO: </b>
-                                        {{contrato.date_emissao| date:'d/m/Y'}}
+                                        <b style="color: #383838;">Forma: </b>
+                                        {{pay.forma_pagamento}}
                                     </p>
 
                                     <p class="p-promoter" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">VENCIMENTO: </b>
-                                        {{contrato.date_vencimento| date:'d/m/Y'}}
+                                        <b style="color: #383838;">Data: </b>
+                                        {{pay.data_pagamento| date:'d/m/Y'}}
                                     </p>
                                 </div>
 
                                 <div class="card-footer" style="background: transparent">
-                                    <h6 class="h5-promoter d-flex justify-content-end" style="color: #171717">
-                                         {{contrato.amount}}
+                                    <h6 class="h6-promoter" style="color: #171717">
+                                         <b style="color: #383838;">
+                                             Informações da fatura paga
+                                         </b>
                                     </h6>
+
+                                     <p class="p-promoter pt-2 pb-0" style="color: #7B7B7B;">
+                                        <b style="color: #383838;">Venc.: </b>
+                                        {{pay.contrato_plano.date_vencimento| date:'d/m/Y'}}
+                                    </p>
+
+                                    <p class="p-promoter" style="color: #7B7B7B;">
+                                        <b style="color: #383838;">Pago: </b>
+                                        {{pay.contrato_plano.amount}}
+                                    </p>
+
+
                                 </div>
                             </section>
                         </article>
@@ -175,5 +177,5 @@
 {##}
 {#            {% endif %}#}
         </div>
-    </section>
+         </section>
 {% endblock content %}
