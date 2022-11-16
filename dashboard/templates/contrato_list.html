@@ -8,16 +8,13 @@
 
 {% block content %}
     <section class="container-fluid">
-        <header class="col-12 mt-4 pt-2 mb-4 d-flex">
-            <div class="col-10 p-0">
-                <h3 class="h3-promoter">Lista de contratos</h3>
-            </div>
+        <header class="col-12 mt-4 pt-2 mb-4 d-flex justify-content-between">
+            <h3 class="h3-promoter">Lista de contratos</h3>
 
-            <div class="col-2 p-0">
-                <a href="{% url 'pdf' %}">
-                    Baixar
-                    <i class="fa fa-file" aria-hidden="true"></i></a>
-            </div>
+            <a class="btn btn-primary pt-2" href="{% url 'pdf' %}" style="background: #3056d3">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                Baixar PDF
+            </a>
         </header>
 
         <main class="card-checkin">

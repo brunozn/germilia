@@ -7,124 +7,60 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <section>
-        <div class="container-fluid">
-            <h3 class="h3-promoter mt-4 pt-2 mb-4">Pagamentos</h3>
-{#            {% if tickets %}#}
+    <section class="container-fluid">
+        <header class="col-12 mt-4 pt-2 mb-4 d-flex justify-content-between">
+            <h3 class="h3-promoter">Pagamentos</h3>
 
-{#                <header class="col-12 mb-4 p-0 d-block d-lg-flex">#}
-{##}
-{#                    <div class="col-12 col-lg-6 p-0">#}
-{#                        <form class="form-inline mr-auto" action="{% url 'search_guest' %}" method="get">#}
-{#                        {% csrf_token %}#}
-{#                            <input class="form-control col-11 col-lg-8 form-control-sm"#}
-{#                                   style="margin-top: 10px;height: 20px; margin-left: 10px"#}
-{#                                   type="search"#}
-{#                                   placeholder="Search per guest name or ticket number"#}
-{#                                   aria-label="Search" name="q">#}
-{##}
-{##}
-{#                                <div class="input-group col-lg-8 col-12 p-0 p-lg-2">#}
-{#                                    <input class="form-control form-control-sm border-right-0 border col-12"#}
-{#                                           style="height: 24px;"#}
-{#                                           type="search"#}
-{#                                           placeholder="Search per guest name or ticket number"#}
-{#                                           aria-label="Search" name="q"#}
-{#                                           id="example-search-input">#}
-{##}
-{#                                    <span class="input-group-append form-control-sm p-0">#}
-{#                                        <button class="btn btn-outline-secondary border-left-0 border form-control-sm"#}
-{#                                                type="submit">#}
-{#                                            <i class="fa fa-search"></i>#}
-{#                                        </button>#}
-{#                                    </span>#}
-{#                                </div>#}
-{##}
-{##}
-{#                        </form>#}
-{#                    </div>#}
-{##}
-{##}
-{#                    <div class="col-12 col-lg-6 p-0">#}
-{##}
-{#                         <form method="POST" style="display: flex">#}
-{#                            {% csrf_token %}#}
-{#                            <label for="eventsChoice" style="font-size: 16px; margin-top: 10px">Events</label>#}
-{##}
-{#                            <select id="eventsChoice"#}
-{#                                    class="form-control form-control-sm col-md-11 col-10 col-lg-9 mt-2"#}
-{#                                    name="events_choice"#}
-{#                                    id="events_choice"#}
-{#                                    style="margin: 0 10px 0 0;">#}
-{##}
-{#                            {% if selected_event %}#}
-{#                                <option value="{{selected_event.id}}" selected="selected">#}
-{#                                    {{ selected_event.name }}#}
-{#                                </option>#}
-{#                            {% endif %}#}
-{#                            <option value="" >All</option>#}
-{##}
-{#                            {% for event in events %}#}
-{#                                <option value="{{event.id}}">{{event.name}}</option>#}
-{#                            {% endfor %}#}
-{#                            </select>#}
-{##}
-{#                            <button action="submit"#}
-{#                                    id="button-adm"#}
-{#                                    class="btn btn-secondary"#}
-{#                                    style="margin-top: 8px;#}
-{#                                       background-color: #d90075">#}
-{#                                Filter#}
-{#                            </button>#}
-{#                        </form>#}
-{#                    </div>#}
-{#                </header>#}
+            <a class="btn btn-primary pt-2" href="{% url 'pdf' %}" style="background: #3056d3">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                Baixar PDF
+            </a>
+        </header>
+
+        <main class="card-checkin">
+            {% for pay in pays %}
+                <article class="card m-lg-2 m-0 mb-4"
+                     style="min-width: 20rem;
+                     max-width: 22rem; border-radius: 10px;">
+
+                    <section class="card-body" style="padding-left: 0px; padding-bottom: 0">
+                        <div style="display: block; padding-right: 0; padding-left: 20px" >
+                            <h5 class="h5-promoter mb-3">{{ pay.contrato_plano }}</h5>
+
+                            <p class="p-promoter" style="color: #7B7B7B;">
+                                <b style="color: #383838;">Forma: </b>
+                                {{pay.forma_pagamento}}
+                            </p>
+
+                            <p class="p-promoter" style="color: #7B7B7B;">
+                                <b style="color: #383838;">Data: </b>
+                                {{pay.data_pagamento| date:'d/m/Y'}}
+                            </p>
+                        </div>
+
+                        <div class="card-footer" style="background: transparent">
+                            <h6 class="h6-promoter" style="color: #171717">
+                                 <b style="color: #383838;">
+                                     Informações da fatura paga
+                                 </b>
+                            </h6>
+
+                             <p class="p-promoter pt-2 pb-0" style="color: #7B7B7B;">
+                                <b style="color: #383838;">Venc.: </b>
+                                {{pay.contrato_plano.date_vencimento| date:'d/m/Y'}}
+                            </p>
+
+                            <p class="p-promoter" style="color: #7B7B7B;">
+                                <b style="color: #383838;">Pago: </b>
+                                {{pay.contrato_plano.amount}}
+                            </p>
 
 
-                <main class="card-checkin">
-                    {% for pay in pays %}
-                        <article class="card m-lg-2 m-0 mb-4"
-                             style="min-width: 22rem;
-                             max-width: 25rem; border-radius: 10px;">
-
-                            <section class="card-body" style="padding-left: 0px; padding-bottom: 0">
-                                <div style="display: block; padding-right: 0; padding-left: 20px" >
-                                    <h5 class="h5-promoter mb-3">{{ pay.contrato_plano }}</h5>
-
-                                    <p class="p-promoter" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">Forma: </b>
-                                        {{pay.forma_pagamento}}
-                                    </p>
-
-                                    <p class="p-promoter" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">Data: </b>
-                                        {{pay.data_pagamento| date:'d/m/Y'}}
-                                    </p>
-                                </div>
-
-                                <div class="card-footer" style="background: transparent">
-                                    <h6 class="h6-promoter" style="color: #171717">
-                                         <b style="color: #383838;">
-                                             Informações da fatura paga
-                                         </b>
-                                    </h6>
-
-                                     <p class="p-promoter pt-2 pb-0" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">Venc.: </b>
-                                        {{pay.contrato_plano.date_vencimento| date:'d/m/Y'}}
-                                    </p>
-
-                                    <p class="p-promoter" style="color: #7B7B7B;">
-                                        <b style="color: #383838;">Pago: </b>
-                                        {{pay.contrato_plano.amount}}
-                                    </p>
-
-
-                                </div>
-                            </section>
-                        </article>
-                    {% endfor %}
-                </main>
+                        </div>
+                    </section>
+                </article>
+            {% endfor %}
+        </main>
 
 {#                <footer class="col-12 mb-5 mt-4">#}
 {#                    {% if tickets.paginator.num_pages > 1 %}#}
@@ -176,6 +112,6 @@
 {#                </div>#}
 {##}
 {#            {% endif %}#}
-        </div>
+
          </section>
 {% endblock content %}
