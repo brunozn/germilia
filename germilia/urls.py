@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from home.views import index, sair, login_membro
-from germilia.views import pdf_view
+from germilia.views import pdf_contrat_view, pdf_pay_view
 from django.conf import settings
 from django.conf.urls.static import static
 # from germilia.germilia import settings
@@ -13,7 +13,8 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', login_membro, name='login'),
     path('sair/', sair, name='sair'),
-    path('pdf/', pdf_view, name='pdf')
+    path('pdf/', pdf_contrat_view, name='pdf_fatura'),
+    path('pay/pdf/', pdf_pay_view, name='pdf_pay'),
 ]
 
 if settings.DEBUG:
