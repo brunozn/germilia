@@ -33,15 +33,15 @@
       <main class="main-size">
         <section class="section-main">
           <h1 class="h1-email p-top">Lembrete de vencimento!</h1>
-          <h4 class="h4-email" style="margin: 0">Plano {{ contrato.plan_family }}</h4>
+          <h4 class="h4-email" style="margin: 0">Plano {{ fatura.plano_familia }}</h4>
         </section>
 
         <section class="section-background">
-          <h2 class="h2-email-section">Seu plano é {{ contrato.type_plan }}</h2>
+          <h2 class="h2-email-section">Seu plano é {{ fatura.tempo_plano }}</h2>
           <h6 class="h6-email">
-              {{ contrato.membro.name }}, verificamos que continua em aberto em nosso
+              {{ fatura.membro.nome }}, verificamos que continua em aberto em nosso
               sistema o pagamento de nº 4567865434567,
-              no valor de R$ {{contrato.amount}},00,  com vencimento na data {{contrato.date_vencimento}}.
+              no valor de R$ {{fatura.valor}},00,  com vencimento na data {{fatura.data_vencimento}}.
           </h6>
           <br>
           <h6 class="h6-email">

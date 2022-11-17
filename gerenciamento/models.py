@@ -9,61 +9,61 @@ from django.dispatch import receiver
 from django.contrib import admin
 
 
-class TypePlan(models.Model):
-    name = models.CharField('Nome do Plano', max_length=50)
+class TempoPlano(models.Model):
+    nome = models.CharField('Nome do Plano', max_length=50)
     quantidade_meses = models.IntegerField('Quant meses', default=1)
     quantidade_dias = models.IntegerField('Quant dias', default=30)
 
     class Meta:
-        verbose_name = 'Tipos de Planos'
-        verbose_name_plural = 'Tipos de Planos'
+        verbose_name = 'Tempo do plano'
+        verbose_name_plural = 'Tempo dos Planos'
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
-class Bank(models.Model):
-    codBank = models.IntegerField('Codigo', default=0, unique=True)
-    nameBank = models.CharField('Nome', max_length=100)
-    fullName = models.CharField('Nome Completo', max_length=250)
+class Banco(models.Model):
+    cod_banco = models.IntegerField(default=0, unique=True)
+    nome_banco = models.CharField(max_length=100)
+    nome_completo_banco = models.CharField(max_length=250)
 
     class Meta:
         verbose_name = 'Banco'
         verbose_name_plural = 'Bancos'
 
     def __str__(self):
-        return self.nameBank
+        return self.nome_banco
 
 
-class PaymentMethod(models.Model):
-    name = models.CharField('Nome', max_length=50)
-    bank = models.ForeignKey(
-        Bank, null=True, blank=True, on_delete=models.CASCADE)
+class MetodoPagamento(models.Model):
+    nome = models.CharField('Nome', max_length=50)
+    banco = models.ForeignKey(
+        Banco, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Metodo de Recebimento do Pagamento'
         verbose_name_plural = 'Metodos de Recebimento do Pagamento'
 
     def __str__(self):
-        return self.name
+        return self.nome
 
 
 class Membro(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='membro', unique=True)
-    name = models.CharField('Nome', max_length=30)
+    nome = models.CharField(max_length=30)
     email = models.EmailField(max_length=254)
     data_entrada = models.DateField()
     foto = models.ImageField(upload_to='membro_photos', null=True, blank=True)
     status = models.BooleanField(default=1)
-    note = models.TextField(max_length=255, null=True, blank=True)
+    nota = models.TextField(max_length=255, null=True, blank=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('nome',)
         verbose_name = 'Membro'
         verbose_name_plural = 'Membros'
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return '{}'.format(self.nome)
 
 
 FAMILIA_CHOICES = (
@@ -79,15 +79,15 @@ STATUS_CHOICES = (
 )
 
 
-class PlanContract(models.Model):
-    nome_contrato = models.CharField('Nome do contrato', max_length=255, null=True, blank=True)
+class Fatura(models.Model):
+    nome_fatura = models.CharField('Fatura', max_length=255, null=True, blank=True)
     membro = models.ForeignKey(Membro, blank=False, on_delete=models.PROTECT)
-    tipo_plano = models.ForeignKey(TypePlan, on_delete=models.CASCADE)
-    amount = models.DecimalField('Valor', max_digits=5, decimal_places=2, blank=True, null=True)
-    date_emissao = models.DateField('Data Emissão')
-    date_vencimento = models.DateField('Vencimento', blank=True, null=True)
-    note = models.TextField('Nota', max_length=255, null=True, blank=True)
-    plan_family = models.CharField('Plano familia', max_length=9, choices=FAMILIA_CHOICES, default="NENHUM")
+    tempo_plano = models.ForeignKey(TempoPlano, on_delete=models.CASCADE)
+    valor = models.DecimalField('Valor', max_digits=5, decimal_places=2, blank=True, null=True)
+    data_emissao = models.DateField('Data Emissão')
+    data_vencimento = models.DateField('Vencimento', blank=True, null=True)
+    nota = models.TextField('Nota', max_length=255, null=True, blank=True)
+    plano_familia = models.CharField('Plano familia', max_length=9, choices=FAMILIA_CHOICES, default="NENHUM")
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="ABERTO")
 
     class Meta:
@@ -96,12 +96,12 @@ class PlanContract(models.Model):
 
     def save(self, *args, **kwargs):
         from datetime import date
-        self.nome_contrato = str(self.membro) + '_' + str(self.date_emissao) + '_' + str(self.plan_family)
-        self.date_vencimento = date.fromordinal(self.date_emissao.toordinal() + int(self.tipo_plano.quantidade_dias))
+        self.nome_fatura = str(self.membro) + '_' + str(self.data_emissao) + '_' + str(self.plano_familia)
+        self.data_vencimento = date.fromordinal(self.data_emissao.toordinal() + int(self.tipo_plano.quantidade_dias))
         super().save(*args, **kwargs)
 
     @admin.display
-    def status_contrato(self):
+    def status_fatura(self):
         if self.status == "ATRASADO":
             return format_html('<span style="background: red;color: #FBFBFB">{}</span>', self.status)
         if self.status == "PAGO":
@@ -109,38 +109,38 @@ class PlanContract(models.Model):
         return format_html('<span>{}</span>', self.status)
 
     def __str__(self):
-        if self.nome_contrato:
-            return self.nome_contrato
-        return self.membro.name
+        if self.nome_fatura:
+            return self.nome_fatura
+        return self.membro.nome
 
 
-class PlanContractPayment(models.Model):
-    contrato_plano = models.ForeignKey(PlanContract, on_delete=models.CASCADE)
-    forma_pagamento = models.ForeignKey(PaymentMethod, null=True, blank=True, on_delete=models.CASCADE)
+class PagamentosFatura(models.Model):
+    fatura_plano = models.ForeignKey(Fatura, on_delete=models.CASCADE)
+    forma_pagamento = models.ForeignKey(MetodoPagamento, null=True, blank=True, on_delete=models.CASCADE)
     data_pagamento = models.DateField('Data pagamento', default=now)
     nota = models.TextField('Notas', max_length=255, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Pagamento de Contrato'
-        verbose_name_plural = 'Pagamentos dos Contratos'
+        verbose_name = 'Pagamento de Fatura'
+        verbose_name_plural = 'Pagamentos dos Faturas'
 
     def __str__(self):
-        return '{}'.format(self.contrato_plano)
+        return '{}'.format(self.fatura_plano)
 
 
-@receiver(post_save, sender=PlanContractPayment)
+@receiver(post_save, sender=PagamentosFatura)
 def update_status(sender, instance, **kwargs):
     if kwargs.get('created', False):
-        status = PlanContract.objects.filter(plancontractpayment=instance)
+        status = Fatura.objects.filter(pagamentosfatura=instance)
         status.update(status='PAGO')
 
 
-@receiver(post_save, sender=PlanContract)
+@receiver(post_save, sender=Fatura)
 def email_pay(sender, instance, **kwargs):
     if kwargs.get('created', False):
         subject = "Aviso do plano familia"
         message = render_to_string('email/email_alert_atraso.html',
-                                   {'contrato': instance})
+                                   {'fatura': instance})
         from_email = 'brunojndias@gmail.com'
         email_payout = EmailMessage(
             subject=subject,

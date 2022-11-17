@@ -1,4 +1,4 @@
-INSERT INTO gerenciamento_bank("codBank", "nameBank", "fullName")
+INSERT INTO gerenciamento_banco(cod_banco, nome_banco, nome_completo_banco)
 VALUES (1, 'BANCO DO BRASIL', 'Banco do Brasil S.A'),
        (260, 'NU PAGAMENTOS', 'NU PAGAMENTOS S.A.'),
        (77, 'BANCO INTER', 'Banco Inter S.A.'),

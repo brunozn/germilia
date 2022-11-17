@@ -6,13 +6,13 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from weasyprint import HTML
 
-from gerenciamento.models import PlanContract, PlanContractPayment
+from gerenciamento.models import Fatura, PagamentosFatura
 
 
-def pdf_contrat_view(request):
+def pdf_fatura_view(request):
     membro = request.user.membro
-    contratos = PlanContract.objects.filter(membro_id=membro).order_by('-data_pagamento')
-    html_string = render_to_string('reports/pdf_template.html', {'faturas': contratos})
+    faturas = Fatura.objects.filter(membro_id=membro).order_by('-data_pagamento')
+    html_string = render_to_string('reports/pdf_template.html', {'faturas': faturas})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     temp_folder = tempfile.gettempdir()
@@ -22,13 +22,13 @@ def pdf_contrat_view(request):
     f = FileSystemStorage(target)
     with f.open(target) as pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="Relatorio_pagamentos.pdf"'
+        response['Content-Disposition'] = 'attachment; filename="Relatorio_Faturas.pdf"'
         return response
 
 
-def pdf_pay_view(request):
-    pays = PlanContractPayment.objects.filter(contrato_plano__membro=request.user.membro).order_by('-data_pagamento')
-    html_string = render_to_string('reports/pdf_pays_template.html', {'pays': pays})
+def pdf_pagamentos_view(request):
+    pagamentos = PagamentosFatura.objects.filter(fatura_plano__membro=request.user.membro).order_by('-data_pagamento')
+    html_string = render_to_string('reports/pdf_pagamentos_template.html', {'pagamentos': pagamentos})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
     temp_folder = tempfile.gettempdir()

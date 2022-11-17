@@ -1,42 +1,42 @@
 from django.contrib import admin
-from .models import Membro, PlanContract, Bank, PaymentMethod, TypePlan, PlanContractPayment
+from .models import Membro, Fatura, Banco, MetodoPagamento, TempoPlano, PagamentosFatura
 
 
-@admin.register(Bank)
+@admin.register(Banco)
 class BankAdmin(admin.ModelAdmin):
-    list_display = ['nameBank', 'codBank']
+    list_display = ['nome_banco', 'cod_banco']
 
     
-@admin.register(TypePlan)
-class TypePlanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'quantidade_meses', 'quantidade_dias']
+@admin.register(TempoPlano)
+class TempoPlanoAdmin(admin.ModelAdmin):
+    list_display = ['nome', 'quantidade_meses', 'quantidade_dias']
 
 
-@admin.register(PaymentMethod)
-class FormaPagamentoAdmin(admin.ModelAdmin):
-    list_display = ['name', 'bank']
+@admin.register(MetodoPagamento)
+class MetodoPagamentoAdmin(admin.ModelAdmin):
+    list_display = ['nome', 'banco']
 
 
 @admin.register(Membro)
 class MembroAdmin(admin.ModelAdmin):
-    list_display = ['name', 'note', 'status']
+    list_display = ['nome', 'nota', 'status']
     list_filter = ('status',)
 
 
-@admin.register(PlanContract)
-class PlanAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_filter = ('status', 'plan_family')
-    list_display = ['membro', 'date_emissao', 'date_vencimento', 'amount',
-                    'tipo_plano', 'nome_contrato', 'status_contrato']
+@admin.register(Fatura)
+class FaturaAdmin(admin.ModelAdmin):
+    search_fields = ['nome']
+    list_filter = ('status', 'plano_familia')
+    list_display = ['membro', 'data_emissao', 'data_vencimento', 'valor',
+                    'tempo_plano', 'nome_fatura', 'status_fatura']
 
 
-@admin.register(PlanContractPayment)
-class PlanContractPaymentAdmin(admin.ModelAdmin):
-    search_fields = ['contrato_plano']
-    list_display = ['contrato_plano', 'forma_pagamento', 'data_pagamento', 'nota']
+@admin.register(PagamentosFatura)
+class PagamentosFaturaAdmin(admin.ModelAdmin):
+    search_fields = ['fatura_plano']
+    list_display = ['fatura_plano', 'forma_pagamento', 'data_pagamento', 'nota']
 
     def render_change_form(self, request, context, *args, **kwargs):
-        context['adminform'].form.fields['contrato_plano'].queryset = \
-            PlanContract.objects.filter(status__iexact='ABERTO')
-        return super(PlanContractPaymentAdmin, self).render_change_form(request, context, *args, **kwargs)
+        context['adminform'].form.fields['fatura_plano'].queryset = \
+            Fatura.objects.filter(status__iexact='ABERTO')
+        return super(PagamentosFatura, self).render_change_form(request, context, *args, **kwargs)

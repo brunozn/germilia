@@ -1,7 +1,7 @@
 {% extends "template_dash.html" %}
 {% load static %}
 {% block title %}
-    Lista de contratos
+    Lista de faturas
 {% endblock %}
 
 {% block stylesheets %}{% endblock stylesheets %}
@@ -9,7 +9,7 @@
 {% block content %}
     <section class="container-fluid">
         <header class="col-12 mt-4 pt-2 mb-4 d-flex justify-content-between">
-            <h3 class="h3-promoter">Lista de contratos</h3>
+            <h3 class="h3-promoter">Lista de faturas</h3>
 
             <a class="btn btn-primary pt-2" href="{% url 'pdf_fatura' %}" style="background: #3056d3">
                 <i class="fa fa-file" aria-hidden="true"></i>
@@ -18,41 +18,41 @@
         </header>
 
         <main class="card-checkin">
-            {% for contrato in contratos %}
+            {% for fatura in faturas %}
                 <article class="card m-lg-2 m-0 mb-4"
                      style="min-width: 20rem;
                      max-width: 20rem; border-radius: 10px;">
 
-                    {% if contrato.status == 'PAGO' %}
+                    {% if fatura.status == 'PAGO' %}
                         <section class="card-header card-promoter" style="background: forestgreen">
                     {% else %}
                         <section class="card-header card-promoter">
                     {% endif %}
 
                         <div style="display: flex; justify-content: space-between;">
-                            <p class="p-promoter">{{contrato.status}}</p>
+                            <p class="p-promoter">{{fatura.status}}</p>
                         </div>
                     </section>
 
 
                     <section class="card-body" style="padding-left: 0; padding-bottom: 0">
                         <div style="display: block; padding-right: 0; padding-left: 20px" >
-                            <h6 class="h6-promoter mb-3">{{ contrato.nome_contrato }}</h6>
+                            <h6 class="h6-promoter mb-3">{{ fatura.nome_fatura }}</h6>
 
                             <p class="p-promoter" style="color: #7B7B7B;">
                                 <b style="color: #383838;">EMISSÃO: </b>
-                                {{contrato.date_emissao| date:'d/m/Y'}}
+                                {{fatura.data_emissao| date:'d/m/Y'}}
                             </p>
 
                             <p class="p-promoter" style="color: #7B7B7B;">
                                 <b style="color: #383838;">VENCIMENTO: </b>
-                                {{contrato.date_vencimento| date:'d/m/Y'}}
+                                {{fatura.data_vencimento| date:'d/m/Y'}}
                             </p>
                         </div>
 
                         <div class="card-footer" style="background: transparent">
                             <h6 class="h5-promoter d-flex justify-content-end" style="color: #171717">
-                                 {{contrato.amount}}
+                                 {{fatura.valor}}
                             </h6>
                         </div>
                     </section>

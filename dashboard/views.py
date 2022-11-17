@@ -1,18 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from gerenciamento.models import PlanContract, PlanContractPayment
+from gerenciamento.models import Fatura, PagamentosFatura
 
 
 @login_required(login_url='/login/')
-def contrat_list(request):
+def fatura_list(request):
     membro = request.user.membro
-    contratos = PlanContract.objects.filter(membro_id=membro).order_by('-date_vencimento')
-    return render(request, 'contrato_list.html', {'contratos': contratos})
+    faturas = Fatura.objects.filter(membro_id=membro).order_by('-date_vencimento')
+    return render(request, 'fatura_list.html', {'faturas': faturas})
 
 
 @login_required(login_url='/login/')
-def historic_pay(request):
+def pagamentos_list(request):
     membro = request.user.membro
-    pays = PlanContractPayment.objects.filter(contrato_plano__membro=membro)
-    return render(request, 'historic_pays.html', {'pays': pays})
+    pagamentos = PagamentosFatura.objects.filter(fatura_plano__membro=membro)
+    return render(request, 'pagamentos_list.html', {'pagamentos': pagamentos})
