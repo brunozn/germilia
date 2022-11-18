@@ -91,13 +91,13 @@ class Fatura(models.Model):
     status = models.CharField(max_length=9, choices=STATUS_CHOICES, default="ABERTO")
 
     class Meta:
-        verbose_name = 'Contrato do Plano'
-        verbose_name_plural = 'Contratos dos Planos'
+        verbose_name = 'Fatura'
+        verbose_name_plural = 'Faturas'
 
     def save(self, *args, **kwargs):
-        from datetime import date
+        from dateutil.relativedelta import relativedelta
         self.nome_fatura = str(self.membro) + '_' + str(self.data_emissao) + '_' + str(self.plano_familia)
-        self.data_vencimento = date.fromordinal(self.data_emissao.toordinal() + int(self.tipo_plano.quantidade_dias))
+        self.data_vencimento = self.data_emissao + relativedelta(months=int(self.tempo_plano.quantidade_meses))
         super().save(*args, **kwargs)
 
     @admin.display
