@@ -4,9 +4,9 @@ from django.contrib.auth.forms import AuthenticationForm
 
 class SignInForm(AuthenticationForm):
     username = forms.CharField(label="", widget=forms.TextInput(attrs={
-        'placeholder': 'Usuario', 'class': "form-control",
+        'placeholder': 'Usuario', 'class': "form-control input-lg",
     }))
 
     password = forms.CharField(label="", widget=forms.PasswordInput(attrs={
-        'placeholder': 'Senha', 'class': "form-control",
+        'placeholder': 'Senha', 'class': "form-control input-lg",
     }))

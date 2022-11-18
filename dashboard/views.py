@@ -7,7 +7,7 @@ from gerenciamento.models import Fatura, PagamentosFatura
 @login_required(login_url='/login/')
 def fatura_list(request):
     membro = request.user.membro
-    faturas = Fatura.objects.filter(membro_id=membro).order_by('-date_vencimento')
+    faturas = Fatura.objects.filter(membro_id=membro).order_by('-data_vencimento')
     return render(request, 'fatura_list.html', {'faturas': faturas})
 
 

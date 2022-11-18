@@ -135,18 +135,18 @@ def update_status(sender, instance, **kwargs):
         status.update(status='PAGO')
 
 
-@receiver(post_save, sender=Fatura)
-def email_pay(sender, instance, **kwargs):
-    if kwargs.get('created', False):
-        subject = "Aviso do plano familia"
-        message = render_to_string('email/email_alert_atraso.html',
-                                   {'fatura': instance})
-        from_email = 'brunojndias@gmail.com'
-        email_payout = EmailMessage(
-            subject=subject,
-            body=message,
-            from_email=from_email,
-            to=[instance.membro.email],
-        )
-        email_payout.content_subtype = "html"
-        email_payout.send()
+# @receiver(post_save, sender=Fatura)
+# def email_pay(sender, instance, **kwargs):
+#     if kwargs.get('created', False):
+#         subject = "Aviso do plano familia"
+#         message = render_to_string('email/email_alert_atraso.html',
+#                                    {'fatura': instance})
+#         from_email = 'brunojndias@gmail.com'
+#         email_payout = EmailMessage(
+#             subject=subject,
+#             body=message,
+#             from_email=from_email,
+#             to=[instance.membro.email],
+#         )
+#         email_payout.content_subtype = "html"
+#         email_payout.send()
