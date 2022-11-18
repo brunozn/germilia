@@ -39,4 +39,4 @@ class PagamentosFaturaAdmin(admin.ModelAdmin):
     def render_change_form(self, request, context, *args, **kwargs):
         context['adminform'].form.fields['fatura_plano'].queryset = \
             Fatura.objects.filter(status__iexact='ABERTO')
-        return super(PagamentosFatura, self).render_change_form(request, context, *args, **kwargs)
+        return super(PagamentosFaturaAdmin, self).render_change_form(request, context, *args, **kwargs)
