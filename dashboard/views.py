@@ -16,3 +16,12 @@ def pagamentos_list(request):
     membro = request.user.membro
     pagamentos = PagamentosFatura.objects.filter(fatura_plano__membro=membro)
     return render(request, 'pagamentos_list.html', {'pagamentos': pagamentos})
+
+
+@login_required(login_url='/login/')
+def painel(request):
+    membro = request.user.membro
+    pagamentos = PagamentosFatura.objects.filter(fatura_plano__membro=membro)
+    print(pagamentos)
+    faturas = Fatura.objects.filter(membro_id=membro).order_by('-data_vencimento')
+    return render(request, 'painel.html', {'pagamentos': pagamentos, 'faturas': faturas, 'membro': membro})

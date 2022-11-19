@@ -8,11 +8,6 @@ def index(request):
     return render(request, 'home/home.html')
 
 
-# def login(request):
-#     # import pdb; pdb.set_trace()
-#     return render(request, 'login.html')
-
-
 def login_membro(request):
     if request.method == 'POST':
         form = SignInForm(data=request.POST)
@@ -26,7 +21,7 @@ def login_membro(request):
             if membro is not None:
 
                 login(request, membro)
-                return redirect('contratos_list')
+                return redirect('painel')
     else:
         form = SignInForm()
     return render(request, 'login.html', {'form': form})
