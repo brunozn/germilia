@@ -7,108 +7,111 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <section class="container-fluid">
-        <header class="col-12 mt-4 pt-2 mb-4 d-flex justify-content-between">
-            <h3 class="h3-promoter">Lista de faturas</h3>
+    <main class="container" style="padding-left:10px">
+      <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-12 col-lg-12 col-xs-offset-1 col-sm-offset-1 col-md-offset-0">
 
-            <a class="btn btn-primary pt-2" href="{% url 'pdf_fatura' %}" style="background: #3056d3">
-                <i class="fa fa-file" aria-hidden="true"></i>
-                Baixar PDF
-            </a>
-        </header>
+          <!-- breadcrumbs -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a style="text-decoration: none" href="{% url 'painel' %}">Painel</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Faturas</li>
+            </ol>
+          </nav>
 
-        <main class="card-checkin">
-            {% for fatura in faturas %}
-                <article class="card m-lg-2 m-0 mb-4"
-                     style="min-width: 20rem;
+          <section class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                    <header class="d-flex justify-content-between">
+                        <h5 class="h5-g mx-0 my-auto w-50">Faturas</h5>
+                        <a class="btn btn-primary btn-sm" href="{% url 'pdf_fatura' %}" style="background: #3056d3">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                            Baixar PDF
+                        </a>
+                    </header>
+
+                    <hr>
+                    <article class="row">
+                      <main class="card-checkin">
+                        {% for fatura in faturas %}
+                          <article class="card m-lg-2 m-0 mb-4" style="min-width: 20rem;
                      max-width: 20rem; border-radius: 10px;">
 
-                    {% if fatura.status == 'PAGO' %}
-                        <section class="card-header card-promoter" style="background: forestgreen">
-                    {% else %}
-                        <section class="card-header card-promoter">
+                            {% if fatura.status == 'PAGO' %}
+                                <section class="card-header card-promoter" style="background: forestgreen">
+                            {% else %}
+                                <section class="card-header card-promoter">
+                            {% endif %}
+
+                                <div class="d-flex justify-content-center">
+                                    <p class="p-g mb-0" style="color: white">{{fatura.status}}</p>
+                                </div>
+                            </section>
+
+                            <section class="card-body" style="padding-left: 0; padding-bottom: 0">
+                                <div style="display: block; padding-right: 0; padding-left: 20px" >
+                                    <h6 class="h6-promoter mb-3">{{ fatura.nome_fatura }}</h6>
+
+                                    <p class="p-promoter" style="color: #7B7B7B;">
+                                        <b style="color: #383838;">EMISSÃO: </b>
+                                        {{fatura.data_emissao| date:'d/m/Y'}}
+                                    </p>
+
+                                    <p class="p-promoter" style="color: #7B7B7B;">
+                                        <b style="color: #383838;">VENCIMENTO: </b>
+                                        {{fatura.data_vencimento| date:'d/m/Y'}}
+                                    </p>
+                                </div>
+
+                                <div class="card-footer" style="background: transparent">
+                                    <h6 class="h5-promoter d-flex justify-content-end" style="color: #171717">
+                                         {{fatura.valor}}
+                                    </h6>
+                                </div>
+                            </section>
+                          </article>
+                        {% endfor %}
+                      </main>
+                  </article>
+
+                  <footer class="col-12 mb-1 mt-1">
+                    {% if faturas.paginator.num_pages > 1 %}
+                        <div class="row row-paginator">
+                        <div class="col-lg-3 col-5">
+                            <span class="text-table">
+                                Mostrando {{ faturas.number }} - {{ faturas.paginator.num_pages }}
+                            </span>
+                        </div>
+
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-3 col-5 text-lg-right pr-lg-5 pr-sm-0">
+                            {% if faturas.has_previous %}
+                                <a class="p-g text pr-3 text-decoration-none"
+                                   href="?page={{ faturas.previous_page_number }}">
+                                    <i class="fas fa-chevron-left fa-sm"
+                                       style="color: #0a53be; height: 10px; width: 10px"></i>
+                                    Anterior
+                                </a>
+                            {% endif %}
+
+                            {% if faturas.has_next %}
+                                <a class="text-table text text-decoration-none"
+                                   href="?page={{ faturas.next_page_number }}">
+                                    Avançar
+                                    <i class="fas fa-chevron-right fa-sm" style="color: #0a53be"></i>
+                                </a>
+                                {% endif %}
+                        </div>
                     {% endif %}
+                    </div>
+                  </footer>
 
-                        <div style="display: flex; justify-content: space-between;">
-                            <p class="p-promoter">{{fatura.status}}</p>
-                        </div>
-                    </section>
-
-
-                    <section class="card-body" style="padding-left: 0; padding-bottom: 0">
-                        <div style="display: block; padding-right: 0; padding-left: 20px" >
-                            <h6 class="h6-promoter mb-3">{{ fatura.nome_fatura }}</h6>
-
-                            <p class="p-promoter" style="color: #7B7B7B;">
-                                <b style="color: #383838;">EMISSÃO: </b>
-                                {{fatura.data_emissao| date:'d/m/Y'}}
-                            </p>
-
-                            <p class="p-promoter" style="color: #7B7B7B;">
-                                <b style="color: #383838;">VENCIMENTO: </b>
-                                {{fatura.data_vencimento| date:'d/m/Y'}}
-                            </p>
-                        </div>
-
-                        <div class="card-footer" style="background: transparent">
-                            <h6 class="h5-promoter d-flex justify-content-end" style="color: #171717">
-                                 {{fatura.valor}}
-                            </h6>
-                        </div>
-                    </section>
-                </article>
-            {% endfor %}
-        </main>
-
-{#                <footer class="col-12 mb-5 mt-4">#}
-{#                    {% if tickets.paginator.num_pages > 1 %}#}
-{#                        <div class="row row-paginator">#}
-{#                        <div class="col-lg-3 col-5">#}
-{#                            <span class="text-table">#}
-{#                                Showing {{ tickets.number }} - {{ tickets.paginator.num_pages }}#}
-{#                            </span>#}
-{#                        </div>#}
-{##}
-{#                        <div class="col-lg-6"></div>#}
-{#                        <div class="col-lg-3 col-5 text-lg-right pr-lg-5 pr-sm-0">#}
-{#                            {% if tickets.has_previous %}#}
-{#                                <a class="text-table text pr-3"#}
-{#                                   href="?page={{ tickets.previous_page_number }}">#}
-{#                                    <i class="fas fa-chevron-left fa-sm"#}
-{#                                       style="color: #d90075; height: 10px; width: 10px"></i>#}
-{#                                    Prev#}
-{#                                </a>#}
-{#                            {% endif %}#}
-{##}
-{#                            {% if tickets.has_next %}#}
-{#                                <a class="text-table text"#}
-{#                                   href="?page={{ tickets.next_page_number }}">#}
-{#                                    Next#}
-{#                                    <i class="fas fa-chevron-right fa-sm" style="color: #d90075"></i>#}
-{#                                </a>#}
-{#                                {% endif %}#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                    </div>#}
-{#                </footer>#}
-
-{#            {% else %}#}
-{#                <div style="width: 100%; margin: auto">#}
-{#                    <article id="event-div" style="display: flex; flex-direction: column">#}
-{#                        <h4 class="h4-promoter centralized">No tickets</h4>#}
-{#                        <br>#}
-{#                        <i class="fas fa-ticket-alt fa-5x" style="color: #d90075;padding-bottom: 20px;"></i>#}
-{##}
-{#                        <a href="{% url 'tickets_validate' %}" class="p-home btn btn-lg mt-4"#}
-{#                           style="background-color: #d90075; color: #FFFFFF">#}
-{##}
-{#                            <i class="fas fa-chevron-left pr-2" style="font-size: 0.8rem"></i>#}
-{#                            Back#}
-{##}
-{#                    </a>#}
-{#                    </article>#}
-{#                </div>#}
-{##}
-{#            {% endif %}#}
-    </section>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
 {% endblock content %}

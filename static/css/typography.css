@@ -107,6 +107,19 @@
     width: 80%;
 }
 
+.w-90{
+    width: 90%;
+}
+
+.w-50{
+    width: 50%;
+}
+@media (max-width: 968px) {
+    .w-90 {
+        width: 75%;
+    }
+}
+
 @media (max-width: 968px) {
     .h1-g {
         line-height: 25px !important;

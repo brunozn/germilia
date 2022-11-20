@@ -1,40 +1,41 @@
 {% extends "template_dash.html" %}
 {% load static %}
 {% block title %}
-    Area membro
+    Painel
 {% endblock %}
 
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <div id="divmainlayout" class="container">
-  <!-- breadcrumbs -->
-  <div id="alertComponent"></div>
-  <div id="content">
-    <div class="container" style="padding-left:10px">
+    <main class="container" style="padding-left:10px">
       <div class="row">
         <div class="col-xs-10 col-sm-10 col-md-12 col-lg-12 col-xs-offset-1 col-sm-offset-1 col-md-offset-0">
-          <h2 class="h2-g">Área membro</h2>
+          <h2 class="h2-g">Painel membro</h2>
           <hr>
-          <div class="row">
+
+          <header class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="panel panel-default">
-                <div class="panel-body d-flex">
+                <aside class="panel-body d-flex">
                     <h4 class="h4-g h-auto mx-0 my-auto w-80"><b>{{ membro }}</b></h4>
                     <h6 class="h6-g h-auto m-auto"><b>Entrou em: </b>{{ membro.data_entrada }}</h6>
-                </div>
+                </aside>
               </div>
             </div>
-          </div>
+          </header>
 
-          <div class="row">
+          <section class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="panel panel-default">
                 <div class="panel-body">
-                  <h5 class="h5-g">Ultimas faturas</h5>
-                     <h6 class="h6-g h-auto m-auto"><b>Entrou em: </b>{{ membro.data_entrada }}</h6>
+                    <header class="d-flex justify-content-between">
+                        <h5 class="h5-g mx-0 my-auto w-90">Ultimas faturas</h5>
+                        <a href="{% url 'contratos_list' %}" style="color: #0a53be"
+                           class="h6-g h-auto m-auto link-success text-decoration-none">Ver todas</a>
+                    </header>
+
                   <hr>
-                  <div class="row">
+                  <article class="row">
                       {% for fatura in faturas %}
                     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                       <div data-key="0" class="panel panel-default btn-boleto">
@@ -56,21 +57,26 @@
                       </div>
                     </div>
                       {% endfor %}
-                </div>
+                </article>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
-          <div class="row">
+          <section class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="panel panel-default">
                 <div class="panel-body">
-                  <h5 class="h5-g">Ultimos pagamentos</h5>
+                  <header class="d-flex justify-content-between">
+                    <h5 class="h5-g mx-0 my-auto w-90">Ultimos pagamentos</h5>
+                    <a href="{% url 'historic_pay' %}" style="color: #0a53be"
+                       class="h6-g h-auto m-auto link-success text-decoration-none">Ver todas</a>
+                  </header>
                   <hr>
-                  <div class="row">
+
+                  <article class="row">
                       {% for pagamento in pagamentos %}
-                    <aside class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                       <div data-key="0" class="panel panel-default btn-boleto">
                         <div class="panel-body">
                           <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" style="padding:1px;">
@@ -86,18 +92,14 @@
                           </div>
                         </div>
                       </div>
-                    </aside>
+                    </div>
                      {% endfor %}
-                  </div>
+                  </article>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- content -->
-  <br>
-</div>
+    </main>
 {% endblock content %}

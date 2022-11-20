@@ -1,117 +1,115 @@
 {% extends "template_dash.html" %}
 {% load static %}
 {% block title %}
-    Lista de contratos
+    Lista de Pagamentos
 {% endblock %}
 
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-    <section class="container-fluid">
-        <header class="col-12 mt-4 pt-2 mb-4 d-flex justify-content-between">
-            <h3 class="h3-promoter">Pagamentos</h3>
+    <main class="container" style="padding-left:10px">
+      <div class="row">
+        <div class="col-xs-10 col-sm-10 col-md-12 col-lg-12 col-xs-offset-1 col-sm-offset-1 col-md-offset-0">
 
-            <a class="btn btn-primary pt-2" href="{% url 'pdf_pay' %}" style="background: #3056d3">
-                <i class="fa fa-file" aria-hidden="true"></i>
-                Baixar PDF
-            </a>
-        </header>
+          <!-- breadcrumbs -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a style="text-decoration: none" href="{% url 'painel' %}">Painel</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Pagamentos</li>
+            </ol>
+          </nav>
 
-        <main class="card-checkin">
-            {% for pagamento in pagamentos %}
-                <article class="card m-lg-2 m-0 mb-4"
-                     style="min-width: 20rem;
+          <section class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="panel panel-default">
+                <div class="panel-body">
+                    <header class="d-flex justify-content-between">
+                        <h5 class="h5-g mx-0 my-auto w-50">Pagamentos</h5>
+                        <a class="btn btn-primary btn-sm" href="{% url 'pdf_pay' %}" style="background: #3056d3">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                            Baixar PDF
+                        </a>
+                    </header>
+
+                    <hr>
+                    <article class="row">
+                      <main class="card-checkin">
+                        {% for pagamento in pagamentos %}
+                          <article class="card m-lg-2 m-0 mb-4" style="min-width: 20rem;
                      max-width: 22rem; border-radius: 10px;">
 
-                    <section class="card-body" style="padding-left: 0px; padding-bottom: 0">
-                        <div style="display: block; padding-right: 0; padding-left: 20px" >
-                            <h5 class="h5-promoter mb-3">{{ pagamento.contrato_plano }}</h5>
+                            <section class="card-body" style="padding-left: 0; padding-bottom: 0">
+                              <div style="display: block; padding-right: 0; padding-left: 20px" >
+                                <h5 class="h5-promoter mb-3">{{ pagamento.contrato_plano }}</h5>
+                                <p class="p-promoter" style="color: #7B7B7B;">
+                                  <b style="color: #383838;">Forma: </b>
+                                  {{pagamento.forma_pagamento}}
+                                </p>
 
-                            <p class="p-promoter" style="color: #7B7B7B;">
-                                <b style="color: #383838;">Forma: </b>
-                                {{pagamento.forma_pagamento}}
-                            </p>
+                                <p class="p-promoter" style="color: #7B7B7B;">
+                                    <b style="color: #383838;">Data: </b>
+                                    {{pagamento.data_pagamento| date:'d/m/Y'}}
+                                </p>
+                              </div>
 
-                            <p class="p-promoter" style="color: #7B7B7B;">
-                                <b style="color: #383838;">Data: </b>
-                                {{pagamento.data_pagamento| date:'d/m/Y'}}
-                            </p>
+                              <details class="card-footer" style="background: transparent">
+                                <h6 class="h6-promoter" style="color: #171717">
+                                     <b style="color: #383838;">
+                                         Informações da fatura paga
+                                     </b>
+                                </h6>
+
+                                 <p class="p-promoter pt-2 pb-0" style="color: #7B7B7B;">
+                                    <b style="color: #383838;">Venc.: </b>
+                                    {{pagamento.fatura_plano.data_vencimento| date:'d/m/Y'}}
+                                </p>
+
+                                <p class="p-promoter" style="color: #7B7B7B;">
+                                    <b style="color: #383838;">Pago: </b>
+                                    {{pagamento.fatura_plano.valor}}
+                                </p>
+                              </details>
+                            </section>
+                          </article>
+                        {% endfor %}
+                      </main>
+                    </article>
+
+                  <footer class="col-12 mb-1 mt-1">
+                    {% if pagamentos.paginator.num_pages > 1 %}
+                      <div class="row row-paginator">
+                        <div class="col-lg-3 col-5">
+                          <span class="text-table">
+                            Mostrando {{ pagamentos.number }} - {{ pagamentos.paginator.num_pages }}
+                          </span>
                         </div>
 
-                        <div class="card-footer" style="background: transparent">
-                            <h6 class="h6-promoter" style="color: #171717">
-                                 <b style="color: #383838;">
-                                     Informações da fatura paga
-                                 </b>
-                            </h6>
+                        <div class="col-lg-6"></div>
+                        <div class="col-lg-3 col-5 text-lg-right pr-lg-5 pr-sm-0">
+                          {% if pagamentos.has_previous %}
+                            <a class="p-g text pr-3 text-decoration-none"
+                               href="?page={{ pagamentos.previous_page_number }}">
+                              <i class="fas fa-chevron-left fa-sm" style="color: #0a53be; height: 10px; width: 10px"></i>
+                                Anterior
+                            </a>
+                          {% endif %}
 
-                             <p class="p-promoter pt-2 pb-0" style="color: #7B7B7B;">
-                                <b style="color: #383838;">Venc.: </b>
-                                {{pagamento.fatura_plano.data_vencimento| date:'d/m/Y'}}
-                            </p>
-
-                            <p class="p-promoter" style="color: #7B7B7B;">
-                                <b style="color: #383838;">Pago: </b>
-                                {{pagamento.fatura_plano.valor}}
-                            </p>
-
-
+                          {% if faturas.has_next %}
+                            <a class="text-table text text-decoration-none"
+                               href="?page={{ pagamentos.next_page_number }}">
+                                Avançar
+                              <i class="fas fa-chevron-right fa-sm" style="color: #0a53be"></i>
+                            </a>
+                          {% endif %}
                         </div>
-                    </section>
-                </article>
-            {% endfor %}
-        </main>
-
-{#                <footer class="col-12 mb-5 mt-4">#}
-{#                    {% if tickets.paginator.num_pages > 1 %}#}
-{#                        <div class="row row-paginator">#}
-{#                        <div class="col-lg-3 col-5">#}
-{#                            <span class="text-table">#}
-{#                                Showing {{ tickets.number }} - {{ tickets.paginator.num_pages }}#}
-{#                            </span>#}
-{#                        </div>#}
-{##}
-{#                        <div class="col-lg-6"></div>#}
-{#                        <div class="col-lg-3 col-5 text-lg-right pr-lg-5 pr-sm-0">#}
-{#                            {% if tickets.has_previous %}#}
-{#                                <a class="text-table text pr-3"#}
-{#                                   href="?page={{ tickets.previous_page_number }}">#}
-{#                                    <i class="fas fa-chevron-left fa-sm"#}
-{#                                       style="color: #d90075; height: 10px; width: 10px"></i>#}
-{#                                    Prev#}
-{#                                </a>#}
-{#                            {% endif %}#}
-{##}
-{#                            {% if tickets.has_next %}#}
-{#                                <a class="text-table text"#}
-{#                                   href="?page={{ tickets.next_page_number }}">#}
-{#                                    Next#}
-{#                                    <i class="fas fa-chevron-right fa-sm" style="color: #d90075"></i>#}
-{#                                </a>#}
-{#                                {% endif %}#}
-{#                        </div>#}
-{#                    {% endif %}#}
-{#                    </div>#}
-{#                </footer>#}
-
-{#            {% else %}#}
-{#                <div style="width: 100%; margin: auto">#}
-{#                    <article id="event-div" style="display: flex; flex-direction: column">#}
-{#                        <h4 class="h4-promoter centralized">No tickets</h4>#}
-{#                        <br>#}
-{#                        <i class="fas fa-ticket-alt fa-5x" style="color: #d90075;padding-bottom: 20px;"></i>#}
-{##}
-{#                        <a href="{% url 'tickets_validate' %}" class="p-home btn btn-lg mt-4"#}
-{#                           style="background-color: #d90075; color: #FFFFFF">#}
-{##}
-{#                            <i class="fas fa-chevron-left pr-2" style="font-size: 0.8rem"></i>#}
-{#                            Back#}
-{##}
-{#                    </a>#}
-{#                    </article>#}
-{#                </div>#}
-{##}
-{#            {% endif %}#}
-
-         </section>
+                      {% endif %}
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
 {% endblock content %}

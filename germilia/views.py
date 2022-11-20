@@ -11,7 +11,7 @@ from gerenciamento.models import Fatura, PagamentosFatura
 
 def pdf_fatura_view(request):
     membro = request.user.membro
-    faturas = Fatura.objects.filter(membro_id=membro).order_by('-data_pagamento')
+    faturas = Fatura.objects.filter(membro_id=membro).order_by('-data_vencimento')
     html_string = render_to_string('reports/pdf_template.html', {'faturas': faturas})
 
     html = HTML(string=html_string, base_url=request.build_absolute_uri())
