@@ -15,7 +15,8 @@ INSERT INTO gerenciamento_membro(nome, email, data_entrada, foto, status, nota, 
 VALUES
     ('Kercia', 'kercia@email.com', '2021-07-07 12:00:03.667324 +00:00', 'foto', 'true', '', 2),
     ('Igor', 'igor@email.com', '2020-03-26 12:00:03.667324 +00:00', 'foto', 'true', '', 3),
-    ('emersondesaa', 'emersondesaa@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 4),
+    ('emersondesaa', 'emersondesaa@email.com', '2019-12-03 12:52:03.667324 +00:00', 'foto', 'true', '', 4),
+
     ('kamillysamp', 'kamillysamp_@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 5),
     ('bruna.f.martins', 'bruna.f.martins@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 6),
     ('antoniomarquesprimeiro', 'antoniomarquesprimeiro@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 7),
