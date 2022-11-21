@@ -29,6 +29,7 @@ class FaturaAdmin(admin.ModelAdmin):
     list_filter = ('status', 'plano_familia')
     list_display = ['membro', 'data_emissao', 'data_vencimento', 'valor',
                     'tempo_plano', 'nome_fatura', 'status_fatura']
+    exclude = ('nome_fatura', 'data_vencimento')
 
 
 @admin.register(PagamentosFatura)
