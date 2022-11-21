@@ -25,7 +25,7 @@ class MembroAdmin(admin.ModelAdmin):
 
 @admin.register(Fatura)
 class FaturaAdmin(admin.ModelAdmin):
-    search_fields = ['nome']
+    search_fields = ['membro__nome']
     list_filter = ('status', 'plano_familia')
     list_display = ['membro', 'data_emissao', 'data_vencimento', 'valor',
                     'tempo_plano', 'nome_fatura', 'status_fatura']
@@ -33,7 +33,7 @@ class FaturaAdmin(admin.ModelAdmin):
 
 @admin.register(PagamentosFatura)
 class PagamentosFaturaAdmin(admin.ModelAdmin):
-    search_fields = ['fatura_plano']
+    search_fields = ['fatura_plano__nome_fatura']
     list_display = ['fatura_plano', 'forma_pagamento', 'data_pagamento', 'nota']
 
     def render_change_form(self, request, context, *args, **kwargs):
