@@ -20,5 +20,5 @@ VALUES
     ('kamillysamp', 'kamillysamp_@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 5),
     ('bruna.f.martins', 'bruna.f.martins@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 6),
     ('antoniomarquesprimeiro', 'antoniomarquesprimeiro@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 7),
-    ('henriquealmeidaa', 'henriquealmeidaa@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 8),
+    ('henriquealmeidaa', 'henriquealmeidaa@email.com', '2021-03-03 02:52:03.667324 +00:00', 'foto', 'true', '', 8),
     ('jvqueiroz', 'jvqueirozzz@email.com', '2022-11-08 02:52:03.667324 +00:00', 'foto', 'true', '', 9);
