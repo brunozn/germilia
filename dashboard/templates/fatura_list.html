@@ -35,11 +35,12 @@
                     <article class="row">
                       <main class="card-checkin">
                         {% for fatura in faturas %}
-                          <article class="card m-lg-2 m-0 mb-4" style="min-width: 20rem;
-                     max-width: 20rem; border-radius: 10px;">
+                          <article class="card m-lg-2 m-0 mb-4">
 
                             {% if fatura.status == 'PAGO' %}
                                 <section class="card-header card-promoter" style="background: forestgreen">
+                            {% elif fatura.status == 'ATRASADO'%}
+                                <section class="card-header card-promoter" style="background: orange">
                             {% else %}
                                 <section class="card-header card-promoter">
                             {% endif %}

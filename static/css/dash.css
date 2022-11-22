@@ -3966,11 +3966,14 @@ input[type=button].btn-block {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  /*min-width: 0;*/
+  min-width: 20rem;
+  max-width: 20rem;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
+  border-top-color: #FFFFFF;
   border-radius: 0.25rem;
 }
 .card > hr {
@@ -4022,6 +4025,7 @@ input[type=button].btn-block {
   padding: 0.2rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
+  border-right-width: 1px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 .card-header:first-child {
@@ -11213,5 +11217,21 @@ button.close {
     pointer-events: none;
     opacity: 0.7;
 }
+
+.flag-card{
+  background: orange;
+  width: max-content;
+  color: #FFFFFF!important;
+  border-radius: 10px;
+}
+
+.green-flag {
+  background: green;
+}
+
+.red-flag {
+  background: red;
+}
+
 
 
